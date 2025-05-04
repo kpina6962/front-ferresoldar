@@ -1,1 +1,76 @@
-<p>registrar-ventas works!</p>
+<!-- registrar-ventas.component.html -->
+
+<div class="container">
+  <form [formGroup]="ventaForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+      <mat-card-title>Formulario de Venta</mat-card-title>
+      <mat-card-content>
+        <!-- Select Producto -->
+        <mat-form-field>
+          <mat-label>Producto</mat-label>
+          <mat-select formControlName="producto" required>
+            <mat-option *ngFor="let producto of productos" [value]="producto.id">
+              {{ producto.nombre }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Campo de Cantidad -->
+        <mat-form-field>
+          <mat-label>Cantidad</mat-label>
+          <input matInput formControlName="cantidad" type="number" required />
+        </mat-form-field>
+
+        <!-- Select Cliente -->
+        <mat-form-field>
+          <mat-label>Cliente</mat-label>
+          <mat-select formControlName="cliente" required>
+            <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">
+              {{ cliente.nombre }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Select Método de Pago -->
+        <mat-form-field>
+          <mat-label>Método de Pago</mat-label>
+          <mat-select formControlName="metodoPago" required>
+            <mat-option *ngFor="let metodo of metodosPago" [value]="metodo.id">
+              {{ metodo.nombre }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!ventaForm.valid">
+          Agregar Producto
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+
+  <!-- Tabla de productos agregados -->
+  <p-table [value]="productosVenta">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData>
+      <tr>
+        <td>{{ rowData.IdProducto }}</td>
+        <td>{{ rowData.Cantidad }}</td>
+        <td>
+          <button mat-icon-button color="warn" (click)="eliminarProducto(rowData)">
+            <mat-icon>delete</mat-icon>
+          </button>          
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <button mat-raised-button color="primary" (click)="imprimirVenta()">
+    Finalizar venta
+  </button>
+</div>
