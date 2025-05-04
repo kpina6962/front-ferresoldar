@@ -1,0 +1,16 @@
+@import "primeng/resources/themes/lara-light-indigo/theme.css"; /* O el tema de tu preferencia */
+@import "primeng/resources/primeng.min.css";
+@import "primeicons/primeicons.css";
+
+/* styles.css: estilos globales opcionales */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* styles.css */
