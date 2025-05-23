@@ -1,0 +1,41 @@
+<div class="table">
+  <div class="content">
+    <div class="div-title">
+      <h2 class="titulo-pages">
+        📄 Reportes
+      </h2>
+    </div>
+
+    <p-card header="📊 Resumen de General">
+      <p-chart type="bar" [data]="chartData" [options]="chartOptions"></p-chart>
+      <div class="resumen-cards">
+        <p-card class="mini-card" header="🛒 Compras">
+          <div class="valor">{{ data.compras | currency:'COP' }}</div>
+        </p-card>
+        <p-card class="mini-card" header="💵 Ventas">
+          <div class="valor">{{ data.venta | currency:'COP' }}</div>
+        </p-card>
+        <p-card class="mini-card" header="📈 Ganancias">
+          <div class="valor">{{ data.ganancia | currency:'COP' }}</div>
+        </p-card>
+      </div>
+      <p-card [header]="'📆 Compras y Ventas mensuales del año ' + yearDefault">
+        <mat-form-field appearance="fill">
+          <mat-label>Mes y Año</mat-label>
+          <input matInput [matDatepicker]="monthPicker" [value]="selectedDate" readonly>
+          <mat-datepicker-toggle matSuffix [for]="monthPicker"></mat-datepicker-toggle>
+
+          <mat-datepicker #monthPicker startView="multi-year" (yearSelected)="chosenYearHandler($event)"
+            (monthSelected)="chosenMonthHandler($event, monthPicker)" panelClass="month-picker" [startAt]="selectedDate"
+            [touchUi]="true">
+          </mat-datepicker>
+        </mat-form-field>
+
+        <p-chart type="bar" [data]="graficoMensualData" [options]="chartOptions"></p-chart>
+      </p-card>
+      <p-card [header]="'📆 Compras y Ventas de ' + meses[mesDefault - 1] + ' del año ' + yearDefault">
+        <p-chart type="bar" [data]="graficoSemanalData" [options]="chartOptions"></p-chart>
+      </p-card>
+    </p-card>
+  </div>
+</div>

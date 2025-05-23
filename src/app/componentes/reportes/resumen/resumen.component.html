@@ -1,0 +1,64 @@
+<div class="table">
+  <div class="content">
+    <div class="div-title">
+      <h2 class="titulo-pages">
+        📄 Resumen
+      </h2>
+    </div>
+    <mat-card class="p-4 shadow-md fondo-gris">
+      <mat-card-title class="text-xl font-semibold mb-10 text-gray-800 titulo">
+        Resumen General del Inventario
+      </mat-card-title>
+
+      <p-table [value]="productos" responsiveLayout="scroll" class="custom-table p-datatable-striped p-datatable-sm">
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="header-cell">Producto</th>
+            <th class="header-cell">Marca</th>
+            <th class="header-cell text-right">Cantidad</th>
+            <th class="header-cell text-right">Precio Compra</th>
+            <th class="header-cell text-right">Precio Venta</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-prod>
+          <tr>
+            <td>{{ prod.nombre }}</td>
+            <td>{{ prod.marca }}</td>
+            <td>{{ prod.cantidad }}</td>
+            <td>{{ prod.precioCompra | currency }}</td>
+            <td>{{ prod.precioVenta | currency }}</td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+          <tr class="totals-row">
+            <td colspan="2" class="text-right font-medium">Totales:</td>
+            <td class="font-semibold">{{ totalCantidad }}</td>
+            <td class="font-semibold text-blue-700">{{ totalCosto | currency }}</td>
+            <td class="font-semibold text-green-700">{{ totalVenta | currency }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </mat-card>
+    <mat-card>
+      <!-- Diagrama precio compra -->
+      <div class="diagramas">
+        <div class="mt-8 diagram">
+          <mat-card-title class="text-xl font-semibold mb-10 text-gray-800 titulo">
+            <p>
+              Diagrama productos - precio compra
+            </p>
+          </mat-card-title>
+          <canvas id="chartCompra"></canvas>
+        </div>
+      </div>
+    </mat-card>
+    <br>
+    <br>
+    <app-resumen-productos></app-resumen-productos>
+    <br>
+    <br>
+    <app-productos-mas-comprados></app-productos-mas-comprados>
+  </div>
+</div>

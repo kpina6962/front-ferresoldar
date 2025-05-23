@@ -1,0 +1,71 @@
+<div class="table">
+    <div class="content">
+        <div class="div-title">
+            <h2 class="titulo-pages">
+                📄 Detalle de productos comprados
+            </h2>
+        </div>
+        <p-card>
+            <p-table [value]="inventarioFiltrado" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]"
+                [responsiveLayout]="'scroll'" [globalFilterFields]="['numFactura', 'producto', 'marca', 'proveedor']"
+                sortMode="multiple">
+
+                <ng-template pTemplate="caption">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">
+                            <i class="pi pi-search"></i>
+                        </span>
+                        <input type="text" pInputText placeholder="Buscar..." [(ngModel)]="searchTerm"
+                            (input)="filtrarInventario()" />
+                    </div>
+                </ng-template>
+
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="id" style="background-color: #0b1a2c; color: white;">
+                            <i class="pi pi-hashtag"></i> ID
+                            <p-sortIcon field="id"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="numFactura" style="background-color: #0b1a2c; color: white;">
+                            <i class="pi pi-file"></i> N° Factura
+                            <p-sortIcon field="numFactura"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="Producto" style="background-color: #0b1a2c; color: white;">
+                            <i class="pi pi-dollar"></i> Producto
+                            <p-sortIcon field="Producto"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="Cantidad" style="background-color: #0b1a2c; color: white;">
+                            <i class="pi pi-dollar"></i> Cantidad
+                            <p-sortIcon field="Cantidad"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="totalVenta" style="background-color: #0b1a2c; color: white;">
+                            <i class="pi pi-dollar"></i> Total Venta
+                            <p-sortIcon field="totalVenta"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="marca" style="background-color: #0b1a2c; color: white;">
+                            <i class="pi pi-calendar"></i> Marca
+                            <p-sortIcon field="marca"></p-sortIcon>
+                        </th>
+                        <th pSortableColumn="proveedor" style="background-color: #0b1a2c; color: white;">
+                            <i class="pi pi-user"></i> Proveedores
+                            <p-sortIcon field="proveedor"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-factura>
+                    <tr>
+                        <td>{{ factura.id }}</td>
+                        <td>{{ factura.numFactura }}</td>
+                        <td>{{ factura.producto }}</td>
+                        <td> {{ factura.cantidad }} </td>
+                        <td>{{ factura.totalCompra | currency:'COP':'symbol':'1.0-0' }}</td>
+                        <td>{{ factura.marca }}</td>
+                        <td>{{ factura.proveedor }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-card>
+    </div>
+</div>

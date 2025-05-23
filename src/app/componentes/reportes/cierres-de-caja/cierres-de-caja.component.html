@@ -1,0 +1,119 @@
+<div class="table">
+    <div class="content">
+        <div class="titulo-pages">
+            <h2>
+                📄 Cierre de caja {{ fechaHoy | date:'EEEE d \'de\' MMMM yyyy' }}
+            </h2>
+        </div>
+        <mat-card class="mb-4">
+            <mat-card-header>
+                <mat-card-title>
+                    <h2 class="titulo-centrado">
+                        Facturas ventas
+                    </h2>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p-table [value]="facturasVentas" [paginator]="true" [rows]="5" [responsiveLayout]="'scroll'"
+                    class="mb-3">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th># Factura</th>
+                            <th>Método de Pago</th>
+                            <th>Total</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-factura>
+                        <tr>
+                            <td>{{ factura.numFactura }}</td>
+                            <td>{{ factura.metodoPago }}</td>
+                            <td>{{ factura.total | currency:'COP' }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- Card: Facturas de Compra -->
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    <h2 class="titulo-centrado">
+                        Facturas Compras
+                    </h2>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p-table [value]="facturasCompras" [paginator]="true" [rows]="5" [responsiveLayout]="'scroll'">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th># Factura</th>
+                            <th>Método de Pago</th>
+                            <th>Total</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-factura>
+                        <tr>
+                            <td>{{ factura.numFactura }}</td>
+                            <td>{{ factura.metodoPago }}</td>
+                            <td>{{ factura.total | currency:'COP' }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </mat-card-content>
+        </mat-card>
+
+    </div>
+    <div class="div-title">
+        <h2 class="titulo-pages">Totales diario</h2>
+    </div>
+
+    <div class="content-flex">
+        <div *ngFor="let grafico of graficosTotales; let i = index" class="valores">
+            <div class="name text-center">
+                    <strong>{{ grafico.label }}</strong>
+                </div>
+            <div>
+                <canvas id="chart-{{i}}" width="200" height="200"></canvas>
+            </div>
+            <div class="text-center">
+                <strong>
+                    {{ grafico.porcentaje.toFixed(2) }}%
+                </strong>
+                <div class="footer">
+                    <p class="text-end">{{ grafico.valor | currency:'COP':'symbol':'1.0' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-flex">
+        <div class="valores">
+            <div class="name-total-ventas text-center">
+                <strong>Total ventas</strong>
+            </div>
+            <div>
+                <canvas id="chartTotalVentas" width="200" height="200"></canvas>
+            </div>
+            <div class="text-center">
+                <strong> {{porcentajeVenta.toFixed(2)}} %</strong>
+            </div>
+            <div class="footer-total-ventas">
+                <p class="text-end"> {{totalGlobalVendido | currency:'COP':'symbol':'1.0' }} </p>
+            </div>
+        </div>
+        <div class="valores">
+            <div class="name-total-compras text-center">
+                <strong>Total compras</strong>
+            </div>
+            <div>
+                <canvas id="chartTotalCompras" width="200" height="200"></canvas>
+            </div>
+            <div class="text-center">
+                <strong> {{porcentajeCompra.toFixed(2)}} %</strong>
+            </div>
+            <div class="footer-total-compras">
+                <p class="text-end"> {{totalGlobalComprado | currency:'COP':'symbol':'1.0' }} </p>
+            </div>
+        </div>
+    </div>
+</div>

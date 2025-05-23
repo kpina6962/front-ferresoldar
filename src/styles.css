@@ -8,9 +8,35 @@ body {
     font-family: Arial, sans-serif;
   }
   
-html, body { height: 100%; }
+html, body { 
+  height: 100%; 
+}
+
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* styles.css */
+.table{
+  background-color: #7B7B87;
+  min-height: 95%;
+}
+.content{
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+.div-title{
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+.content-header{
+  background-color: #7B7B87;
+}
+/* En styles.css o el scss del componente */
+
+::ng-deep .custom-table .p-datatable {
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb; /* light gray border */
+}

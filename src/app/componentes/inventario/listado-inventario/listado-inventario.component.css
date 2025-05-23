@@ -1,0 +1,34 @@
+.titulo-pages{
+  text-align: center; 
+  font-weight: bold; 
+  font-size: 1.5rem;
+  color: white
+}
+:host ::ng-deep .p-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.p-inputgroup {
+  max-width: 400px;
+}
+
+.acciones-botones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.container-button{
+  display: flex;
+  margin-bottom: 2%;
+}
+.boton{
+  margin-left: auto;
+}
+.fila-roja {
+  background-color: #ff9688 !important; /* rojo claro */
+}
+
+.fila-amarilla {
+  background-color: #ebf3a0 !important; /* amarillo claro */
+}

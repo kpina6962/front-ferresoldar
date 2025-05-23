@@ -20,12 +20,23 @@ import { TableModule } from 'primeng/table';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { CardModule } from 'primeng/card';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogService } from 'primeng/dynamicdialog';
+import { InformacionFacturasComponent } from './informacion-facturas/informacion-facturas.component';
+import { ListadoComprasComponent } from './listado-compras/listado-compras.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
     FiltroVentasListadoComponent,
     ListadoVentasComponent,
-    RegistrarVentasComponent
+    RegistrarVentasComponent,
+    InformacionFacturasComponent,
+    ListadoComprasComponent
   ],
   imports: [
     MatCardModule,
@@ -42,7 +53,16 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatOptionModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    CardModule,
+    DynamicDialogModule,
+    ToastModule,
+    DialogModule,
+    InputTextModule
+  ],
+  providers: [
+    DialogService,
+    MessageService
   ]
 })
 export class VentasModule {}

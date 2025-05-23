@@ -1,0 +1,63 @@
+<mat-card class="p-4 shadow-md fondo-gris">
+  <mat-card-title class="text-xl font-semibold mb-10 text-gray-800 titulo">
+    Productos más vendidos
+  </mat-card-title>
+
+  <!-- Filtros -->
+  <div class="filtro-container">
+    <div class="campos-fila">
+      <mat-form-field appearance="fill">
+        <mat-label>Marca</mat-label>
+        <mat-select [(ngModel)]="marcaSeleccionada">
+          <mat-option *ngFor="let marca of marcas" [value]="marca.id">
+            {{ marca.nombre }}
+          </mat-option>
+          <mat-option [value]="null">Todas</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha Inicio</mat-label>
+        <input matInput [matDatepicker]="pickerInicio" [(ngModel)]="fechaInicio" />
+        <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+        <mat-datepicker #pickerInicio></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha Fin</mat-label>
+        <input matInput [matDatepicker]="pickerFin" [(ngModel)]="fechaFin" />
+        <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFin></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="boton-fila">
+      <button mat-raised-button color="primary" (click)="filtrarProductos()">Filtrar</button>
+    </div>
+  </div>
+
+  <p-table [value]="productos" responsiveLayout="scroll" class="custom-table p-datatable-striped p-datatable-sm">
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="header-cell">Producto</th>
+        <th class="header-cell">Marca</th>
+        <th class="header-cell">Cantidad</th>
+        <th class="header-cell">Total</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-prod>
+      <tr>
+        <td>{{ prod.nombre }}</td>
+        <td>{{ prod.marca }}</td>
+        <td class="text-right">{{ prod.cantidadVendida }}</td>
+        <td class="text-right">{{ prod.totalVenta | currency }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</mat-card>
+<mat-card>
+  <p-card header="📊 Resumen de productos más vendidos">
+    <p-chart type="bar" [data]="grafico" [options]="chartOptions"></p-chart>
+  </p-card>
+</mat-card>

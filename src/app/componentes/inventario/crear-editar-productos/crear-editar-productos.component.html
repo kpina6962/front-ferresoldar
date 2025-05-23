@@ -1,1 +1,69 @@
-<p>crear-editar-productos works!</p>
+<p-dialog
+  [header]="modo === 'crear' ? 'Crear Producto' : 'Editar Producto'"
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="dialogStyle"
+  [styleClass]="dialogStyleClass"
+  [closable]="true"
+  [dismissableMask]="true"
+  [breakpoints]="{ '960px': '95vw' }"
+  [baseZIndex]="10000"
+  (onHide)="cerrarDialogo()"
+>
+  <form [formGroup]="formularioProducto" (ngSubmit)="guardarProducto()" class="p-fluid">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" pInputText formControlName="nombre" />
+      </div>
+
+      <div class="p-field">
+        <label for="idMedida">Medida</label>
+        <p-dropdown 
+          [options]="medidas" 
+          optionLabel="nombre" 
+          optionValue="id" 
+          formControlName="idMedida" 
+          placeholder="Seleccione una medida">
+        </p-dropdown>
+      </div>
+
+      <div class="p-field">
+        <label for="valor">Valor</label>
+        <input id="valor" type="number" pInputText formControlName="valor" />
+      </div>
+
+      <div class="p-field">
+        <label for="valorVenta">Valor Venta</label>
+        <input id="valorVenta" type="number" pInputText formControlName="valorVenta" />
+      </div>
+
+      <div class="p-field">
+        <label for="idMarca">Marca</label>
+        <p-dropdown 
+          [options]="marcas" 
+          optionLabel="nombre" 
+          optionValue="id" 
+          formControlName="idMarca" 
+          placeholder="Seleccione una marca">
+        </p-dropdown>
+      </div>
+
+      <div class="p-field">
+        <label for="idSeccion">Sección</label>
+        <p-dropdown 
+          [options]="secciones" 
+          optionLabel="nombre" 
+          optionValue="id" 
+          formControlName="idSeccion" 
+          placeholder="Seleccione una sección">
+        </p-dropdown>
+      </div>
+    </div>
+
+    <div class="field text-right" style="margin-top: 15px;">
+      <button pButton type="submit" [label]="modo === 'crear' ? 'Crear' : 'Actualizar'" [disabled]="formularioProducto.invalid"></button>
+    </div>
+  </form>
+</p-dialog>
+<p-toast></p-toast>

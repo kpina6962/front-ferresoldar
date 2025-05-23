@@ -1,0 +1,55 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" [opened]="!isCollapsed" class="sidenav">
+    <div class="sidenav-header">
+      <img src="" alt="Logo" class="logo" />
+      <span class="brand">Ferresoldar</span>
+    </div>
+
+
+    <div class="menu-body">
+      <mat-nav-list class="menu-list">
+        <div *ngFor="let item of menuItems">
+          <div class="menu-item" (click)="toggleSection(item)">
+            <mat-icon class="menu-icon">
+              {{ item.icon === 'home' ? 'dashboard' :
+              item.icon === 'settings' ? 'settings' :
+              item.icon === 'attach_money' ? 'monetization_on' :
+              item.icon === 'inventory' ? 'store' :
+              'supervised_user_circle' }}
+            </mat-icon>
+            <span class="menu-label">{{ item.label }}</span>
+            <mat-icon class="expand-icon">
+              {{ item.expanded ? 'expand_less' : 'expand_more' }}
+            </mat-icon>
+          </div>
+
+          <div class="submenu" *ngIf="item.expanded">
+            <div class="submenu-item" *ngFor="let subItem of item.subItems" [routerLink]="subItem.route"
+              routerLinkActive="active">
+              {{ subItem.label }}
+            </div>
+          </div>
+        </div>
+      </mat-nav-list>
+    </div>
+
+
+    <div class="logout-container">
+      <div class="menu-item logout" (click)="cerrarSesion()">
+        <mat-icon class="menu-icon">logout</mat-icon>
+        <span class="menu-label">Cerrar sesión</span>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="content-header">
+      <button mat-icon-button (click)="toggleMenu()">
+        <mat-icon style="color: white;">menu</mat-icon>
+      </button>
+    </div>
+
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

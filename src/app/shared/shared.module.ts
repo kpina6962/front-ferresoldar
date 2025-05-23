@@ -27,7 +27,8 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule,
     MatListModule,
     MatTreeModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ]
 })
 export class SharedModule { }

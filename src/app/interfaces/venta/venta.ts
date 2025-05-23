@@ -5,7 +5,13 @@ export interface ProductoVentaViewModel{
     IdProducto: number,
     Cantidad: number
 }
-
+export interface ProductoVentaViewModelTable {
+    IdProducto: number,
+    nombre?: string,
+    precio?: number,
+    cantidad: number,
+    marca?: string
+}
 export interface DatosViewModel {
     IdPropietario: number,
     IdCliente: number,
@@ -19,4 +25,9 @@ export interface VentaViewModel{
     IdCliente: number,
     IdUsuario: number,
     IdMetodoPago:  number
+}
+
+export interface SimpleViewModel{
+    id: number,
+    nombre: string
 }

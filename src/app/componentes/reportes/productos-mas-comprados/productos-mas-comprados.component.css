@@ -1,0 +1,128 @@
+/* Aplica a la tabla personalizada */
+::ng-deep .custom-table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Encabezados */
+::ng-deep .custom-table .p-datatable-thead > tr > th.header-cell {
+  background-color: #f3f4f6; /* gris claro */
+  color: #374151; /* gris oscuro */
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+/* Celdas del cuerpo */
+::ng-deep .custom-table .p-datatable-tbody > tr > td {
+  padding: 0.75rem 1rem;
+}
+
+/* Fila de totales */
+::ng-deep .custom-table .p-datatable-tfoot > tr.totals-row {
+  background-color: #f9fafb;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+/* Alineación de texto a la derecha */
+.text-right {
+  text-align: right;
+}
+
+/* Colores para totales destacados */
+.text-blue-700 {
+  color: #1d4ed8;
+}
+
+.text-green-700 {
+  color: #15803d;
+}
+.table {
+  width: 90%;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+.resumen-cards {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.mini-card {
+  flex: 1 1 30%;
+  text-align: center;
+  padding: 1rem;
+}
+
+.valor {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #444;
+}
+.titulo{
+  margin-block: 2%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fondo-gris {
+  background-color: #6b7280;
+  color: white;
+}
+
+/* Tabla: quitar fondo blanco del encabezado */
+::ng-deep .custom-table .p-datatable-thead > tr > th {
+  background-color: transparent !important;
+  color: white !important;
+  border-color: #9ca3af; /* gris claro para líneas */
+}
+
+/* Cuerpo: texto blanco */
+::ng-deep .custom-table .p-datatable-tbody > tr > td {
+  background-color: transparent !important;
+  border-color: #9ca3af;
+}
+
+/* Totales (footer) */
+::ng-deep .custom-table .p-datatable-tfoot > tr.totals-row {
+  background-color: transparent !important;
+  border-top: 1px solid #9ca3af;
+}
+
+/* Texto de totales específicos */
+::ng-deep .text-blue-700 {
+  color: #93c5fd !important; /* azul claro */
+}
+
+::ng-deep .text-green-700 {
+  color: #86efac !important; /* verde claro */
+}
+
+
+.filtro-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.campos-fila {
+  display: flex;
+  justify-content: space-around;
+  gap: 16px;
+}
+
+.campos-fila mat-form-field {
+  flex: 1;
+  max-width: 350px;
+}
+
+.boton-fila {
+  display: flex;
+  justify-content: center;
+}

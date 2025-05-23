@@ -1,1 +1,86 @@
-<p>listado-inventario works!</p>
+<div class="table">
+    <div class="content">
+        <div class="div-title">
+            <h2 class="titulo-pages">
+                📄 Listado Inventario
+            </h2>
+        </div>
+        <!--Kevin-->
+        <p-card styleClass="mb-4">
+            <div class="p-d-flex p-jc-start p-ai-center mb-3 container-button">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">
+                        <i class="pi pi-search"></i>
+                    </span>
+                    <input type="text" pInputText placeholder="Buscar..." [(ngModel)]="searchTerm"
+                        (input)="filtrarInventario()" />
+                </div>
+                <div class="p-d-flex p-jc-end mb-2 boton">
+                    <button pButton type="button" icon="pi pi-plus" label="Crear producto" class="p-button-success"
+                        (click)="crearProducto()">
+                    </button>
+                </div>
+            </div>
+
+
+
+            <p-table [value]="inventarioFiltrado" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]"
+                [responsiveLayout]="'scroll'" [globalFilterFields]="['id', 'nombre', 'marca', 'cantidad', 'seccion']"
+                sortMode="multiple">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="id" style="background-color: #0b1a2c; color: white;">
+                            Código <p-sortIcon field="id" />
+                        </th>
+                        <th pSortableColumn="nombre" style="background-color: #0b1a2c; color: white;">
+                            Nombre <p-sortIcon field="nombre" />
+                        </th>
+                        <th pSortableColumn="marca" style="background-color: #0b1a2c; color: white;">
+                            Marca <p-sortIcon field="marca" />
+                        </th>
+                        <th pSortableColumn="cantidad" style="background-color: #0b1a2c; color: white;">
+                            Stock <p-sortIcon field="cantidad" />
+                        </th>
+                        <th pSortableColumn="seccion" style="background-color: #0b1a2c; color: white;">
+                            Seccion <p-sortIcon field="seccion" />
+                        </th>
+                        <th style="text-align: center;" style="background-color: #0b1a2c; color: white;">Acciones</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-producto>
+                    <tr [ngClass]="{
+        'fila-roja': producto.cantidad === 0,
+        'fila-amarilla': producto.cantidad > 0 && producto.cantidad <= 3
+      }">
+                        <td>{{ producto.id }}</td>
+                        <td>{{ producto.nombre }}</td>
+                        <td>{{ producto.marca }}</td>
+                        <td>{{ producto.cantidad }}</td>
+                        <td>{{ producto.seccion }}</td>
+                        <td style="text-align: center;">
+                            <div class="acciones-botones">
+                                <button pButton type="button" icon="pi pi-eye"
+                                    class="p-button-sm p-button-rounded p-button-info" (click)="verProducto(producto)"
+                                    pTooltip="Ver"></button>
+                                <button pButton type="button" icon="pi pi-pencil"
+                                    class="p-button-sm p-button-rounded p-button-warning"
+                                    (click)="abrirDialogoEditar(producto)" pTooltip="Editar"></button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </p-card>
+
+        <app-crear-editar-productos 
+            [(visible)]="mostrarDialogoProducto" 
+            [modo]="modoFormulario"
+            [producto]="productoSeleccionado" (productoGuardado)="onProductoGuardado($event)"
+            [dialogStyle]="{ width: '40vw', height: '63vh' }"
+            dialogStyleClass="mi-modal">
+        </app-crear-editar-productos>
+        <!--Kevin end-->
+    </div>
+</div>
