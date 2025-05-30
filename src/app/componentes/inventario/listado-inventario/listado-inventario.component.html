@@ -41,6 +41,9 @@
                         <th pSortableColumn="cantidad" style="background-color: #0b1a2c; color: white;">
                             Stock <p-sortIcon field="cantidad" />
                         </th>
+                        <th pSortableColumn="cantidad" style="background-color: #0b1a2c; color: white;">
+                            Estado <p-sortIcon field="cantidad" />
+                        </th>
                         <th pSortableColumn="seccion" style="background-color: #0b1a2c; color: white;">
                             Seccion <p-sortIcon field="seccion" />
                         </th>
@@ -49,14 +52,20 @@
                 </ng-template>
 
                 <ng-template pTemplate="body" let-producto>
-                    <tr [ngClass]="{
-        'fila-roja': producto.cantidad === 0,
-        'fila-amarilla': producto.cantidad > 0 && producto.cantidad <= 3
-      }">
-                        <td>{{ producto.id }}</td>
+                    <tr>
+                        <td> <strong>{{ producto.codigo }}</strong> </td>
                         <td>{{ producto.nombre }}</td>
                         <td>{{ producto.marca }}</td>
                         <td>{{ producto.cantidad }}</td>
+                        <td>
+                            <span [ngClass]="{
+                            'estado-disponible': producto.cantidad > 10,
+                            'estado-proximo': producto.cantidad > 0 && producto.cantidad <= 10,
+                            'estado-agotado': producto.cantidad === 0
+                            }">
+                                {{ obtenerEstadoProducto(producto.cantidad) }}
+                            </span>
+                        </td>
                         <td>{{ producto.seccion }}</td>
                         <td style="text-align: center;">
                             <div class="acciones-botones">
@@ -74,12 +83,9 @@
             </p-table>
         </p-card>
 
-        <app-crear-editar-productos 
-            [(visible)]="mostrarDialogoProducto" 
-            [modo]="modoFormulario"
+        <app-crear-editar-productos [(visible)]="mostrarDialogoProducto" [modo]="modoFormulario"
             [producto]="productoSeleccionado" (productoGuardado)="onProductoGuardado($event)"
-            [dialogStyle]="{ width: '40vw', height: '63vh' }"
-            dialogStyleClass="mi-modal">
+            [dialogStyle]="{ width: '40vw', height: '63vh' }" dialogStyleClass="mi-modal">
         </app-crear-editar-productos>
         <!--Kevin end-->
     </div>

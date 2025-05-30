@@ -16,7 +16,9 @@ export class MenuComponent {
       subItems: [
         { label: 'Resumen', route: '/reportes/resumen' },
         { label: 'Estadísticas', route: '/reportes/reportes' },
-        { label: 'Cierre de Caja', route: '/reportes/cierre-de-caja-diario' }
+        { label: 'Cierre de Caja', route: '/reportes/cierre-de-caja-diario' },
+        { label: 'Cierre de Caja Mensual', route: '/reportes/cierre-de-caja-mensual' },
+        { label: 'Estados de cuenta', route: '/reportes/estados-de-cuenta'}
       ]
     },
     {

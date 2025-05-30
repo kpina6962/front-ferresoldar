@@ -1,1 +1,64 @@
-<p>estados-de-cuenta works!</p>
+<div class="table">
+    <div class="content">
+        <div class="div-title">
+            <h2 class="titulo-pages">
+                📄 Estados de cuenta
+            </h2>
+        </div>
+        <!-- ✅ Tabla de métodos de pago -->
+        <p-table [value]="backendData" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5,10,20]"
+            [responsiveLayout]="'scroll'" [globalFilterFields]="['id', 'nombre', 'marca', 'cantidad', 'seccion']"
+            sortMode="multiple">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="metodoPago" style="background-color: #0b1a2c; color: white;">
+                        Metodo pago <p-sortIcon field="metodoPago" />
+                    </th>
+                    <th pSortableColumn="totalValor" style="background-color: #0b1a2c; color: white;">
+                        Total <p-sortIcon field="total" />
+                    </th>
+                    <th pSortableColumn="cantidadTransacciones" style="background-color: #0b1a2c; color: white;">
+                        Cantidad <p-sortIcon field="cantidad" />
+                    </th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-producto>
+                <tr>
+                    <td> <strong>{{ producto.metodoPago }}</strong> </td>
+                    <td> <span class="estado-disponible">{{ producto.totalValor | currency:'COP' }}</span> </td>
+                    <td>{{ producto.cantidadTransacciones }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <br>
+    <div class="content">
+        <div class="p-grid p-dir-row p-flex-wrap p-jc-start container-cards">
+            <div class="p-col-12 p-md-6 p-lg-4" *ngFor="let item of meterGroupDisplayValues" style="display: flex; justify-content: center;"> <p-card
+                    styleClass="custom-card-in-grid">
+                    <div class="card-content-wrapper">
+                        <div class="card-icon-section">
+                            <div class="progress-bar-container" [style.background-color]="item.color2">
+                                <div class="progress-fill" [style.width]="item.value + '%'"
+                                    [style.background-color]="item.color1">
+                                    <i [class]="item.icon + ' card-primeicon'"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-info-section">
+                            <span class="p-text-bold card-label"> <strong>{{ item.label }}</strong> </span>
+                            <div class="card-percentage" [style.color]="item.color1">{{ item.value | number:'1.2-2'}}%
+                            </div>
+                            <div class="card-details">
+                                <div>Total: {{ item.totalValorOriginal | currency:'USD':'symbol':'1.0-0' }}</div>
+                                <div>Transacciones: {{ item.cantidadTransaccionesOriginal }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </p-card>
+            </div>
+        </div>
+    </div>
+</div>

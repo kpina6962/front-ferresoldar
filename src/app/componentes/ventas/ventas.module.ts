@@ -29,7 +29,8 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
-
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CheckboxModule } from 'primeng/checkbox';
 @NgModule({
   declarations: [
     FiltroVentasListadoComponent,
@@ -58,7 +59,9 @@ import { InputTextModule } from 'primeng/inputtext';
     DynamicDialogModule,
     ToastModule,
     DialogModule,
-    InputTextModule
+    InputTextModule,
+    AutoCompleteModule,
+    CheckboxModule
   ],
   providers: [
     DialogService,

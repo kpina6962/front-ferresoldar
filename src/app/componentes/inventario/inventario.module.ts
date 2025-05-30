@@ -17,17 +17,27 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { RegistrarComprasInventarioComponent } from './registrar-compras-inventario/registrar-compras-inventario.component';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
-
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InformacionProductoComponent } from './informacion-producto/informacion-producto.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import { EditarProductoAuditoriaComponent } from './editar-producto-auditoria/editar-producto-auditoria.component';
 @NgModule({
   declarations: [
     ListadoInventarioComponent,
     CrearEditarProductosComponent,
-    RegistrarComprasInventarioComponent
+    RegistrarComprasInventarioComponent,
+    InformacionProductoComponent,
+    EditarProductoAuditoriaComponent
   ],
   imports: [
     CommonModule,
@@ -48,11 +58,20 @@ import { MessageModule } from 'primeng/message';
     DialogModule,
     ToastModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    AutoCompleteModule,
+    InputTextareaModule,
+    MatDialogModule,
+    MatCardModule,
+    MatListModule, 
+    MatDividerModule,
+    ConfirmDialogModule
   ],
   providers: [
       DialogService,
-      MessageService
+      MessageService,
+      ConfirmationService,
+      ConfirmationService
   ]
 })
 export class InventarioModule { }

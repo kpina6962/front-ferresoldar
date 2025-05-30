@@ -35,3 +35,11 @@
   margin-left: auto;
   margin-right: auto;
 }
+.checkbox{
+  width: 100%;
+  display: flex;
+  margin: 1%;
+}
+.texto{
+  margin: 7%;
+}

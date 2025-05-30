@@ -1,4 +1,4 @@
-import { ProductoMasVendidoDto, ReporteInventario, ReporteSemanal, ResumenCierreCaja } from './../../interfaces/reportes/reporte-back';
+import { MetodoPagoData, ProductoMasVendidoDto, ReporteInventario, ReporteSemanal, ResumenCierreCaja } from './../../interfaces/reportes/reporte-back';
 import { Injectable } from '@angular/core';
 import { environment } from '../../envrioment/envrioment';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -12,6 +12,7 @@ import { DetalleCompra, DetalleVenta } from '../../interfaces/detalles/detalle-v
 export class ReportesService {
   private webApi: string = environment.endpoint;
   private api: string = 'api/Reportes/'
+  private apiCierreCaja: string = 'api/CierreCaja/cierre-caja?'
   //
   private reportes: string = 'reporte'
   private reporteMensual: string = 'reporte-meses'
@@ -26,6 +27,7 @@ export class ReportesService {
   private DetalleCompras: string = 'detalle-compras'
   
   private CierreCaja: string = 'cierre-de-caja-diario'
+  private EstadosCuenta: string = 'estados-de-cuenta'
   constructor(private http: HttpClient) { }
   //Estadisticas
   obtenerReporte(idPropietario: number):Observable<ReporteBack> {
@@ -86,5 +88,11 @@ export class ReportesService {
   }
   obtenerCierreDeCajaDiario(idPropietario: number):Observable<ResumenCierreCaja>{
     return this.http.get<ResumenCierreCaja>(`${this.webApi}${this.api}${this.CierreCaja}?idPropietario=${idPropietario}`);
+  }
+  obtenerEstadosDeCuenta(idPropietario: number):Observable<MetodoPagoData[]>{
+    return this.http.get<MetodoPagoData[]>(`${this.webApi}${this.api}${this.EstadosCuenta}?idPropietario=${idPropietario}`);
+  }
+  obtenerCierreCaja(idPropietario: number, idMes: number, year: number):Observable<any>{
+    return this.http.get<any>(`${this.webApi}${this.apiCierreCaja}idPropietario=${idPropietario}&mes=${idMes}&year=${year}`);
   }
 }

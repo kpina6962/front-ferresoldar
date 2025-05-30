@@ -15,9 +15,8 @@ export class RegistrarComprasInventarioComponent implements OnInit {
   productoDialogVisible: boolean = false;
   inventarioAGenerar: InventarioGenerate[] = [];
 
-
-
   proveedores!: SimpleViewModel[];
+  metodosPago!: SimpleViewModel[];
 
   productosDisponibles!: ProductoViewModel[];
 
@@ -29,17 +28,20 @@ export class RegistrarComprasInventarioComponent implements OnInit {
   ngOnInit() {
     this.obtenerProveedores(1);
     this.obtenerProductos(1);
+    this.obtenerMetodosPago(1)
     this.compraForm = this.fb.group({
       proveedor: [null, Validators.required],
       quienSolicita: ['', Validators.required],
       quienAutoriza: [''],
       direccionEntrega: [''],
       observaciones: [''],
+      metodoPago: [null, Validators.required],
       productos: this.fb.array([])
     });
 
     this.crearProductoForm();
   }
+
   obtenerProductos(id: number) {
     this.servicio.obtenerProductos(id).subscribe({
       next: data => {
@@ -54,6 +56,14 @@ export class RegistrarComprasInventarioComponent implements OnInit {
       }
     })
   }
+
+  obtenerMetodosPago(id: number){
+    this.servicio.obtenerMetodosPago(id).subscribe({
+      next: data => {
+        this.metodosPago = data;
+      }
+    })
+  }
   get productos(): FormArray {
     return this.compraForm.get('productos') as FormArray;
   }
@@ -61,7 +71,7 @@ export class RegistrarComprasInventarioComponent implements OnInit {
   crearProductoForm() {
     this.productoForm = this.fb.group({
       codigo: [null, Validators.required], // cambiará a contener el objeto producto
-      descripcion: ['', Validators.required],
+      descripcion: [{ value: 0, disabled: true }, Validators.required],
       cantidad: [1, [Validators.required, Validators.min(1)]],
       precio: [{ value: 0, disabled: true }, [Validators.required, Validators.min(0)]],
       descuento: [0, [Validators.min(0)]],
@@ -80,7 +90,7 @@ export class RegistrarComprasInventarioComponent implements OnInit {
       const cantidad = this.productoForm.get('cantidad')?.value;
 
       const newProducto = this.fb.group({
-        codigo: [productoSeleccionado.id],
+        codigo: [productoSeleccionado.codigo],
         descripcion: [productoSeleccionado.nombre],
         cantidad: [cantidad],
         precio: [productoSeleccionado.precio],
@@ -111,9 +121,18 @@ export class RegistrarComprasInventarioComponent implements OnInit {
 
   productoSeleccionado(producto: ProductoViewModel) {
     this.productoForm.patchValue({
-      descripcion: producto.nombre,
+      descripcion: producto.descripcion,
       precio: producto.precio
     });
+  }
+
+  productosFiltrados: ProductoViewModel[] = [];
+
+  filtrarProductos(event: any) {
+    const query = event.query.toLowerCase();
+    this.productosFiltrados = this.productosDisponibles.filter(producto =>
+      `${producto.codigo} - ${producto.nombre}`.toLowerCase().includes(query)
+    );
   }
 
   calcularTotal(productoForm: FormGroup) {
@@ -151,13 +170,17 @@ export class RegistrarComprasInventarioComponent implements OnInit {
     if (this.inventarioAGenerar.length != 0) {
       this.enviando = true;
 
-      const idUsuario = 1;
+      const idUsuario = 4;
       const idPropietario = 1;
+      const idMetodoPago = this.compraForm.get('metodoPago')?.value?.id;
+      const totalCompra = this.totalGeneral;
 
       const payload = {
         inventarioAgregar: this.inventarioAGenerar,
         idUsuario,
-        idPropietario
+        idMetodoPago,
+        idPropietario,
+        totalCompra
       };
 
       this.servicio.enviarMovimientoInventario(payload).subscribe({

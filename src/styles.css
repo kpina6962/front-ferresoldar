@@ -18,7 +18,7 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* styles.css */
 .table{
-  background-color: #7B7B87;
+  background-color: #BCC8D5;
   min-height: 95%;
 }
 .content{
@@ -31,7 +31,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding-bottom: 2%;
 }
 .content-header{
-  background-color: #7B7B87;
+  background-color: #BCC8D5;
 }
 /* En styles.css o el scss del componente */
 

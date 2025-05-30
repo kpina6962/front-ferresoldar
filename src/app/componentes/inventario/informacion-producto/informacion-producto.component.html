@@ -1,0 +1,105 @@
+<mat-dialog-content>
+  <mat-card>
+    <mat-card-title> <h2 class="titulo-producto" style="text-align: center;">{{ producto.nombre }}</h2></mat-card-title>
+    <mat-divider></mat-divider>
+    <mat-list class="lista">
+      <mat-list-item>
+        <div class="lista-texto">
+            <div class="texto-titulo">
+                <strong>Código:</strong>
+            </div>
+            <div class="texto-valor">
+                <span class="data">{{ producto.codigo }}</span>
+            </div>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div class="lista-texto">
+            <div class="texto-titulo">
+                <strong>Marca:</strong>
+            </div>
+            <div class="texto-valor">
+                <span class="data">{{ producto.marca }}</span>
+            </div>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div class="lista-texto">
+            <div class="texto-titulo">
+                <strong>Medida:</strong>
+            </div>
+            <div class="texto-valor">
+                <span class="data">{{ producto.medida }}</span>
+            </div>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div class="lista-texto">
+            <div class="texto-titulo">
+                <strong>Seccion:</strong>
+            </div>
+            <div class="texto-valor">
+                <span class="data">{{ producto.seccion }}</span>
+            </div>
+        </div>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <div class="lista-texto">
+            <div class="texto-titulo">
+                <strong>Total Comprado:</strong>
+            </div>
+            <div class="texto-valor">
+                <span class="data">{{ producto.totalUnidadesCompradas }}</span>
+            </div>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div class="lista-texto">
+            <div class="texto-titulo">
+                <strong>Total Vendido:</strong>
+            </div>
+            <div class="texto-valor">
+                <span class="data">{{ producto.totalUnidadesVendidas }}</span>
+            </div>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+        <div class="lista-texto">
+            <div class="texto-titulo">
+                <strong>Valor Comprado:</strong>
+            </div>
+            <div class="texto-valor">
+                <span class="data">{{ producto.totalComprado | currency }}</span>
+            </div>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+         <div class="lista-texto">
+            <div class="texto-titulo">
+                <strong>Valor Venta:</strong>
+            </div>
+            <div class="texto-valor">
+                <span class="data">{{ producto.totalVendido | currency }}</span>
+            </div>
+        </div>
+      </mat-list-item>
+      <mat-list-item>
+         <div class="lista-texto">
+            <div class="texto-titulo">
+                <strong>Ganancias:</strong>
+            </div>
+            <div class="texto-valor">
+                <span class="data">{{ producto.totalVendido - producto.totalComprado | currency }}</span>
+            </div>
+        </div>
+      </mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+    <mat-card-subtitle>{{ producto.descripcion }}</mat-card-subtitle>
+  </mat-card>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" style="text-align: center; justify-content: center;">
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

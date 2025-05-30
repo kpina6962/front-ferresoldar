@@ -1,8 +1,8 @@
 .titulo-pages{
-  text-align: center; 
-  font-weight: bold; 
-  font-size: 1.5rem;
-  color: white
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #0b1a2c;
 }
 :host ::ng-deep .p-card {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -25,10 +25,26 @@
 .boton{
   margin-left: auto;
 }
-.fila-roja {
-  background-color: #ff9688 !important; /* rojo claro */
+.estado-disponible {
+  background-color: #d1f8d7;
+  color: #137333;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 10px;
 }
 
-.fila-amarilla {
-  background-color: #ebf3a0 !important; /* amarillo claro */
+.estado-proximo {
+  background-color: #fff4d1;
+  color: #b36b00;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+
+.estado-agotado {
+  background-color: #fddede;
+  color: #c92a2a;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 10px;
 }

@@ -26,22 +26,33 @@ export class ReportesComponent implements OnInit {
 
   chartData!: ChartData<'bar'>;
   chartOptions: ChartOptions = {
-    responsive: true,
-    plugins: {
-      legend: { display: false }
-    },
-    scales: {
-      x: {
-        ticks: { color: '#495057' },
-        grid: { color: '#ebedef' }
-      },
-      y: {
-        ticks: { color: '#495057' },
-        grid: { color: '#ebedef' },
-        beginAtZero: true
-      }
+  responsive: true,
+  plugins: {
+    legend: {
+      display: true, // Puedes cambiar a false si no quieres mostrar leyenda
+      position: 'top'
     }
-  };
+  },
+  scales: {
+    x: {
+      stacked: true,
+      ticks: { color: '#495057' },
+      grid: { color: '#ebedef' }
+    },
+    y: {
+      stacked: true,
+      beginAtZero: true,
+      ticks: {
+        color: '#495057',
+        callback: function (value) {
+          return value.toLocaleString();
+        }
+      },
+      grid: { color: '#ebedef' }
+    }
+  }
+};
+
 
   constructor(private _service: ReportesService,
     private fb: FormBuilder) {
@@ -89,60 +100,45 @@ export class ReportesComponent implements OnInit {
   graficoMensualData!: ChartData<'bar'>;
 
   actualizarGraficoMensual(): void {
-    const etiquetas = this.reporteMensual.map(r => r.mes);
-    const compras = this.reporteMensual.map(r => r.compras);
-    const ventas = this.reporteMensual.map(r => r.ventas);
-    const ganancia = this.reporteMensual.map(r => r.ganancia);
-    const gananciaColores = ganancia.map(g => g >= 0 ? '#66BB6A' : '#EF5350'); // Verde o Rojo
-    this.graficoMensualData = {
-      labels: etiquetas,
-      datasets: [
-        {
-          label: 'Compras',
-          data: compras,
-          backgroundColor: '#42A5F5'
-        },
-        {
-          label: 'Ventas',
-          data: ventas,
-          backgroundColor: '#6b7280'
-        },
-        {
-          label: 'Ganancias',
-          data: ganancia,
-          backgroundColor: gananciaColores
+  const etiquetas = this.reporteMensual.map(r => r.mes);
+  const compras = this.reporteMensual.map(r => r.compras);
+  const ventas = this.reporteMensual.map(r => r.ventas);
 
-        }
-      ]
-    };
-  }
+  this.graficoMensualData = {
+    labels: etiquetas,
+    datasets: [
+      {
+        label: 'Compras',
+        data: compras,
+        backgroundColor: '#5d6b7f'
+      },
+      {
+        label: 'Ventas',
+        data: ventas,
+        backgroundColor: '#cbd5e1'
+      }
+    ]
+  };
+}
 
   graficoSemanalData!: ChartData<'bar'>;
   actualizarGraficoSemanal(): void {
     const etiquetas = this.reporteSemanal.map(r => r.semana);
     const compras = this.reporteSemanal.map(r => r.compras);
     const ventas = this.reporteSemanal.map(r => r.ventas);
-    const ganancia = this.reporteSemanal.map(r => r.ganancia);
-    const gananciaColores = ganancia.map(g => g >= 0 ? '#66BB6A' : '#EF5350'); // Verde o Rojo
     this.graficoSemanalData = {
       labels: etiquetas,
       datasets: [
         {
           label: 'Compras',
           data: compras,
-          backgroundColor: '#42A5F5'
+          backgroundColor: '#5d6b7f'
         },
         {
           label: 'Ventas',
           data: ventas,
-          backgroundColor: '#6b7280'
+          backgroundColor: '#cbd5e1'
         },
-        {
-          label: 'Ganancias',
-          data: ganancia,
-          backgroundColor: gananciaColores
-
-        }
       ]
     };
   }

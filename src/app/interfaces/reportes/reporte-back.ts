@@ -42,3 +42,19 @@ export interface ResumenCierreCaja {
   facturasVentas: any[];   // puedes definir estos luego si los usas
   facturasCompras: any[];
 }
+export interface MetodoPagoData {
+  metodoPago: string;
+  totalValor: number;
+  cantidadTransacciones: number;
+}
+export interface CierreCajaData {
+  saldoMesAnteriorEfectivo: number;
+  totalIngresosEfectivoMesActual: number;
+  totalEgresosEfectivoMesActual: number;
+  saldoTotalEfectivoMesActual: number;
+  totalVentasCreditoMesActual: number;
+  totalVentasTransferenciaMesActual: number;
+  totalComprasGeneralMesActual: number;
+  totalVentasGeneralMesActual: number;
+  gananciasDelMesActual: number;
+}

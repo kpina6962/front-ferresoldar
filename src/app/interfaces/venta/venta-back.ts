@@ -11,7 +11,9 @@ export interface Cliente {
   export interface Producto {
     idProducto: number;
     nombre: string;
+    codigo: string;
     precio: number;
+    cantidad: number;
     marca: string;
   }
 
@@ -47,6 +49,7 @@ export interface Cliente {
   export interface DetalleFactura {
   numFactura: number;
   producto: string;
+  codigo: string,
   marca: string;
   cantidad: number;
   precio: number;

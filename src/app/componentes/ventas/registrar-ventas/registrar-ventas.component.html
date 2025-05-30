@@ -35,7 +35,6 @@
             </div>
           </div>
 
-
         </div>
 
         <!-- Tabla de productos -->
@@ -71,35 +70,65 @@
           </ng-template>
           <ng-template pTemplate="footer">
             <tr>
-              <td colspan="7" class="text-right font-bold">Total General:</td>
+              <td colspan="7" class="text-right font-bold">Subtotal:</td>
               <td colspan="2" class="font-bold">{{ totalGeneral | currency:'COP' }}</td>
+            </tr>
+            <tr *ngIf="gananciaPorcentaje > 0">
+              <td colspan="7" class="text-right font-bold">Ganancia adicional ({{ gananciaPorcentaje }}%):</td>
+              <td colspan="2" class="font-bold">{{ valorGanancia | currency:'COP' }}</td>
+            </tr>
+            <tr>
+              <td colspan="7" class="text-right font-bold">Total General:</td>
+              <td colspan="2" class="font-bold">{{ totalConGanancia | currency:'COP' }}</td>
             </tr>
           </ng-template>
         </p-table>
+
+        <!-- Sección de ganancia adicional -->
+        <div class="checkbox">
+          <div class="p-mt-3" *ngIf="productos.controls.length > 0">
+            <div class="p-field-checkbox p-mb-3" >
+              <p-checkbox id="deseaGanancia" binary="true" formControlName="deseaGanancia"
+                (onChange)="onGananciaChange($event)"></p-checkbox>
+              <label for="deseaGanancia" class="p-ml-2">¿Desea tener más ganancia?</label>
+            </div>
+
+            <div class="p-field texto" *ngIf="compraForm.get('deseaGanancia')?.value" style="max-width: 300px;">
+              <label for="porcentajeGanancia">Porcentaje de ganancia</label>
+              <p-dropdown id="porcentajeGanancia" [options]="opcionesPorcentaje" optionLabel="label" optionValue="value"
+                formControlName="porcentajeGanancia" placeholder="Selecciona un porcentaje"
+                (onChange)="onPorcentajeChange($event.value)">
+              </p-dropdown>
+            </div>
+          </div>
+        </div>
 
         <div class="p-d-flex p-jc-end p-mt-2">
           <button pButton label="Agregar producto" icon="pi pi-plus" class="p-button-sm p-button-success"
             (click)="abrirDialogoProducto()" type="button">
           </button>
-          <button pButton label="Generar compra" icon="pi pi-save" class="p-button-sm p-button-primary button-m"
+          <button pButton label="Generar venta" icon="pi pi-save" class="p-button-sm p-button-primary button-m"
             (click)="guardarVenta()" type="button" [disabled]="enviando">
           </button>
-
         </div>
 
       </form>
     </p-card>
-
 
     <p-dialog header="Agregar Producto" [(visible)]="productoDialogVisible" [modal]="true" [responsive]="true"
       [style]="{ width: '450px' }">
       <form [formGroup]="productoForm" class="p-fluid">
         <div class="p-field">
           <label for="codigo">Producto</label>
-          <p-dropdown id="codigo" [options]="productosDisponibles" optionLabel="nombre"
-            placeholder="Seleccione un producto" (onChange)="productoSeleccionado($event.value)"
-            formControlName="codigo">
-          </p-dropdown>
+          <p-autoComplete id="codigo" [suggestions]="productosFiltrados" (completeMethod)="filtrarProductos($event)"
+            field="nombre" [dropdown]="true" [forceSelection]="true" [minLength]="1" formControlName="codigo"
+            (onSelect)="productoSeleccionado($event.value)">
+
+            <ng-template let-producto pTemplate="item">
+              {{ producto.codigo }} - {{ producto.nombre }}
+            </ng-template>
+
+          </p-autoComplete>
         </div>
         <div class="p-field">
           <label for="descripcion">Descripción</label>
@@ -108,6 +137,11 @@
         <div class="p-field">
           <label for="cantidad">Cantidad</label>
           <input id="cantidad" type="number" pInputText formControlName="cantidad" />
+        </div>
+        <!--Stock actual-->
+        <div class="p-field">
+          <label for="cantidadProducto">Cantidad disponible</label>
+          <input id="cantidadProducto" type="number" pInputText formControlName="cantidadProducto" />
         </div>
         <div class="p-field">
           <label for="precio">Precio</label>

@@ -1,0 +1,137 @@
+.titulo-pages{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #0b1a2c;
+}
+
+/* Estilos para las tarjetas cuando están en un grid (uno al lado del otro) */
+.custom-card-in-grid {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 15px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #0b1a2c; /* ¡AÑADE ESTA LÍNEA! Cambia el color por el que quieras */
+}
+
+/* Eliminar padding por defecto de p-card si es necesario (ya lo tienes, solo verificar) */
+.p-card .p-card-body,
+.p-card .p-card-content {
+    padding: 0 !important;
+}
+
+/* El contenedor principal de las tarjetas en el grid */
+.container-cards {
+    /* Puedes añadir padding o margen si quieres que el grupo de tarjetas no toque los bordes de la página */
+    padding: 10px;
+}
+
+.card-content-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%; /* Asegura que el wrapper ocupe todo el ancho disponible */
+}
+
+/* Sección del icono y la barra de progreso */
+.card-icon-section {
+    flex-shrink: 0;
+    width: 100px; /* Ajusta el ancho para que la barra se vea bien en tarjetas más pequeñas */
+    height: 40px; /* Ajusta la altura de la barra */
+    display: flex;
+    align-items: center;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-left: 8px; /* Ajusta el padding para el ícono */
+    box-sizing: border-box;
+}
+
+.card-primeicon {
+    font-size: 1.8rem; /* Ajusta el tamaño del ícono para que quepa bien */
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Sección de información a la derecha */
+.card-info-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* margin-bottom: 3%; */ /* Quita o comenta esto si no lo necesitas más */
+}
+
+.card-label {
+    font-size: 1rem; /* Ajusta el tamaño de la fuente */
+    margin-bottom: 3px;
+    color: #333;
+}
+
+.card-percentage {
+    font-size: 1.3rem; /* Ajusta el tamaño del porcentaje */
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.card-details {
+    font-size: 0.8rem; /* Ajusta el tamaño de la fuente */
+    color: #555;
+}
+
+.card-details div {
+    margin-bottom: 2px;
+}
+
+/* Asegúrate de que las clases de PrimeFlex para el grid estén correctas */
+.p-grid {
+    display: flex;
+    flex-wrap: wrap; /* Importante para que los ítems se envuelvan a la siguiente fila */
+}
+
+/* Estas media queries ahora son importantes para la responsividad del grid */
+.p-col-12 {
+    width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+    .p-md-6 {
+        width: 50%; /* Dos tarjetas por fila en pantallas medianas */
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .p-lg-4 {
+        width: 33.3333%; /* Tres tarjetas por fila en pantallas grandes */
+    }
+}
+
+/* Mantén cualquier otra clase que necesites */
+.estado-disponible {
+    background-color: #d1f8d7;
+    color: #137333;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 10px;
+}

@@ -1,1 +1,112 @@
-<p>cierre-de-caja-mensual works!</p>
+<div class="table">
+    <div class="content">
+        <div class="div-title">
+            <h2 class="titulo-pages">
+                📄 Cierre de caja mensual - {{ nombreMesYAnio }}
+            </h2>
+        </div>
+        <div class="flex align-items-center gap-3 mb-4">
+            <label for="mesAnio">Seleccione Mes y Año:</label>
+            <p-calendar [(ngModel)]="fechaSeleccionada" [view]="'month'" dateFormat="MM yy" (onSelect)="onFechaChange()"
+                inputId="mesAnio" showIcon="true" [yearNavigator]="true" [monthNavigator]="true"
+                [style]="{ width: '200px' }"></p-calendar>
+        </div>
+        <div class="contenedor-cierre">
+            <div class="p-grid p-dir-row p-flex-wrap p-jc-start container-cards">
+                <div class="p-col-12 p-md-6 p-lg-4" *ngFor="let item of resumenCajaBase"
+                    style="display: flex; justify-content: center; margin-bottom: 2%;">
+                    <p-card styleClass="custom-card-in-grid">
+                        <div class="card-title-wrapper">
+                            <span class="p-text-bold card-label">
+                                <strong>{{ item.label }}</strong>
+                            </span>
+                        </div>
+                        <div class="card-content-wrapper">
+                            <div class="card-icon-section">
+                                <div class="progress-bar-container" [style.background-color]="item.color2">
+                                    <div class="progress-fill" style="width: 100%;"
+                                        [style.background-color]="item.color1">
+                                        <i [class]="item.icon + ' card-primeicon'"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-info-section">
+                                <div class="card-details">
+                                    <div>Total: {{ item.totalValor | currency:'USD':'symbol':'1.0-0' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-card>
+                </div>
+
+            </div>
+
+            <mat-divider class="separador"></mat-divider>
+
+            <div class="chart-wrapper">
+                <p-chart type="bar" [data]="chartData" [options]="chartOptions" style="width: 100%"></p-chart>
+            </div>
+
+            <div class="p-grid p-dir-row p-flex-wrap p-jc-start container-cards">
+                <div class="p-col-12 p-md-6 p-lg-4" *ngFor="let item of resumenCaja"
+                    style="display: flex; justify-content: center; margin-bottom: 2%;">
+                    <p-card styleClass="custom-card-in-grid">
+                        <div class="card-content-wrapper">
+                            <div class="card-icon-section">
+                                <div class="progress-bar-container" [style.background-color]="item.color2">
+                                    <div class="progress-fill" style="width: 100%;"
+                                        [style.background-color]="item.color1">
+                                        <i [class]="item.icon + ' card-primeicon'"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-info-section">
+                                <span class="p-text-bold card-label">
+                                    <strong>{{ item.label }}</strong>
+                                </span>
+                                <div class="card-details">
+                                    <div>Total: {{ item.totalValor | currency:'USD' }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-card>
+                </div>
+            </div>
+
+            <mat-divider class="separador"></mat-divider>
+
+            <mat-card>
+                <mat-card-title style="text-align: center;">Resumen Financiero del Mes</mat-card-title>
+                <div class="tabla-wrapper">
+                    <table mat-table [dataSource]="tablaResumen" class="mat-elevation-z2">
+
+                        <ng-container matColumnDef="descripcion">
+                            <th mat-header-cell *matHeaderCellDef>Descripción</th>
+                            <td mat-cell *matCellDef="let element"> <strong>{{ element.descripcion }}</strong> </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="valor">
+                            <th mat-header-cell *matHeaderCellDef>Valor</th>
+                            <td mat-cell *matCellDef="let element">
+                                <span [ngClass]="{'negativo': element.valor < 0, 'positivo': element.valor >= 0}">
+                                    {{ element.valor | currency:'USD':'symbol':'1.0-0' }}
+                                </span>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <div class="acciones-finales mt-5 d-flex justify-content-center gap-3 flex-wrap">
+        <p-button label="Consultar Facturas de Compra del Mes" icon="pi pi-file" class="p-button-info" (click)="consultarCompras()"></p-button>
+
+        <p-button label="Consultar Facturas de Venta del Mes" icon="pi pi-file" class="p-button-info"  (click)="consultarVentas()"></p-button>
+
+        <p-button label="Consultar Retiros de Caja y Transferencias" icon="pi pi-wallet" class="p-button-info" (click)="consultarRetiros()"></p-button>
+    </div>
+</div>

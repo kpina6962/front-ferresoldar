@@ -1,8 +1,8 @@
 .titulo-pages{
-  text-align: center; 
-  font-weight: bold; 
-  font-size: 1.5rem;
-  color: white
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #0b1a2c;
 }
 .titulo-centrado{
     text-align: center; 
@@ -166,4 +166,10 @@ p-table tbody tr:nth-child(odd) {
     width: 90%;
     height: auto;
   }
+}
+.titulo-pages{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #0b1a2c;
 }

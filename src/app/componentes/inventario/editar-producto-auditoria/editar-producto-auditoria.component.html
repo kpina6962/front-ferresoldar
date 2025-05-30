@@ -1,0 +1,57 @@
+<mat-dialog-content>
+    <form [formGroup]="formularioProducto" (ngSubmit)="guardarProducto()" class="p-fluid">
+        <div class="p-fluid">
+            <div class="p-field">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" pInputText formControlName="nombre" />
+            </div>
+
+            <div class="p-field">
+                <label for="descripcion">Descripcion</label>
+                <input id="descripcion" pInputText formControlName="descripcion" />
+            </div>
+
+            <div class="p-field">
+                <label for="idMedida">Medida</label>
+                <p-dropdown [options]="medidas" optionLabel="nombre" optionValue="id" formControlName="idMedida"
+                    placeholder="Seleccione una medida">
+                </p-dropdown>
+            </div>
+
+            <div class="p-field">
+                <label for="valor">Valor</label>
+                <input id="valor" type="number" pInputText formControlName="valor" />
+            </div>
+
+            <div class="p-field">
+                <label for="valorVenta">Valor Venta</label>
+                <input id="valorVenta" type="number" pInputText formControlName="valorVenta" />
+            </div>
+
+            <div class="p-field">
+                <label for="idMarca">Marca</label>
+                <p-dropdown [options]="marcas" optionLabel="nombre" optionValue="id" formControlName="idMarca"
+                    placeholder="Seleccione una marca">
+                </p-dropdown>
+            </div>
+
+            <div class="p-field">
+                <label for="idSeccion">Sección</label>
+                <p-dropdown [options]="secciones" optionLabel="nombre" optionValue="id" formControlName="idSeccion"
+                    placeholder="Seleccione una sección">
+                </p-dropdown>
+            </div>
+        </div>
+
+
+
+        <div class="field text-right" style="margin-top: 15px;">
+            <button pButton type="submit" [disabled]="formularioProducto.invalid">
+                Editar
+            </button>
+        </div>
+
+    </form>
+</mat-dialog-content>
+<p-confirmDialog></p-confirmDialog>
+<p-toast></p-toast>

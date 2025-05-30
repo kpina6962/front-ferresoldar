@@ -25,6 +25,12 @@
                         <label for="observaciones">Observaciones</label>
                         <textarea id="observaciones" pInputTextarea formControlName="observaciones"></textarea>
                     </div>
+                    <div class="p-field p-col-12 p-md-6">
+                        <label for="metodosPago">* Metodos de pago</label>
+                        <p-dropdown id="metodoPago" [options]="metodosPago" optionLabel="nombre"
+                            formControlName="metodoPago" placeholder="Selecciona un metodo de pago" [showClear]="true">
+                        </p-dropdown>
+                    </div>
                 </div>
 
                 <!-- Tabla de productos -->
@@ -88,11 +94,18 @@
             <form [formGroup]="productoForm" class="p-fluid">
                 <div class="p-field">
                     <label for="codigo">Producto</label>
-                    <p-dropdown id="codigo" [options]="productosDisponibles" optionLabel="nombre"
-                        placeholder="Seleccione un producto" (onChange)="productoSeleccionado($event.value)"
-                        formControlName="codigo">
-                    </p-dropdown>
+                    <p-autoComplete id="codigo" [suggestions]="productosFiltrados"
+                        (completeMethod)="filtrarProductos($event)" field="nombre" [dropdown]="true"
+                        [forceSelection]="true" [minLength]="1" formControlName="codigo"
+                        (onSelect)="productoSeleccionado($event.value)">
+
+                        <ng-template let-producto pTemplate="item">
+                            {{ producto.codigo }} - {{ producto.nombre }}
+                        </ng-template>
+
+                    </p-autoComplete>
                 </div>
+
                 <div class="p-field">
                     <label for="descripcion">Descripción</label>
                     <input id="descripcion" type="text" pInputText formControlName="descripcion" />

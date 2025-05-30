@@ -1,5 +1,6 @@
 export interface Inventario {
     id: number,
+    codigo: string,
     nombre: string,
     cantidad: number,
     medida: string,
@@ -9,7 +10,9 @@ export interface Inventario {
 
 export interface ProductoViewModel{
     id: number,
+    codigo: string,
     nombre: string,
+    descripcion: string,
     precio: number
 }
 
@@ -26,19 +29,12 @@ export interface FormProducto {
 
 export interface ProductoAdd{
   nombre: string,
+  descripcion: string,
   idMedida: number,
   valor: number,
   idMarca: number,
   idSeccion: number,
-  precioVenta: number
-}
-
-export interface ProductoBack{
-  nombre: string,
-  idMedida: number,
-  valor: number,
-  idMarca: number,
-  idSeccion: number,
+  valorVenta: number
 }
 
 export interface InventarioGenerate{
@@ -50,4 +46,16 @@ export interface MovimientoInventarioRequest {
   inventarioAgregar: InventarioGenerate[];
   idUsuario: number;
   idPropietario: number;
+}
+export interface InformacionProducto{
+  codigo: string,
+  nombre: string,
+  descripcion: string,
+  marca: string,
+  medida: string,
+  seccion: string,
+  totalUnidadesCompradas: number,
+  totalUnidadesVendidas: number,
+  totalComprado: number,
+  totalVendido: number
 }

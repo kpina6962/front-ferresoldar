@@ -4,6 +4,8 @@ import { ReportesComponent } from './reportes/reportes.component';
 import { MenuComponent } from '../menu/menu.component';
 import { ResumenComponent } from './resumen/resumen.component';
 import { CierresDeCajaComponent } from './cierres-de-caja/cierres-de-caja.component';
+import { EstadosDeCuentaComponent } from './estados-de-cuenta/estados-de-cuenta.component';
+import { CierreDeCajaMensualComponent } from './cierre-de-caja-mensual/cierre-de-caja-mensual.component';
 
 const routes: Routes = [
   {
@@ -12,7 +14,9 @@ const routes: Routes = [
     children: [
       {path: 'reportes', component: ReportesComponent},
       {path: 'resumen', component: ResumenComponent},
-      {path: 'cierre-de-caja-diario', component: CierresDeCajaComponent}
+      {path: 'cierre-de-caja-diario', component: CierresDeCajaComponent},
+      {path: 'cierre-de-caja-mensual', component: CierreDeCajaMensualComponent},
+      {path: 'estados-de-cuenta', component: EstadosDeCuentaComponent}
     ]
   }
 ];

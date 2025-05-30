@@ -91,7 +91,7 @@ export class CierresDeCajaComponent implements OnInit {
         data: {
           datasets: [{
             data: [g.porcentaje, 100 - g.porcentaje],
-            backgroundColor: ['#3F51B5', '#7b7b87'],
+            backgroundColor: ['#3F51B5', '#e0e0e0'],
             borderWidth: 0
           }]
         },

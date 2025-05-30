@@ -8,7 +8,7 @@ import { ChartModule } from 'primeng/chart';
 import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatDatepickerModule} from '@angular/material/datepicker'; 
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
@@ -21,14 +21,28 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CierresDeCajaComponent } from './cierres-de-caja/cierres-de-caja.component';
 import { ProductosMasCompradosComponent } from "./productos-mas-comprados/productos-mas-comprados.component";
-
+import { EstadosDeCuentaComponent } from './estados-de-cuenta/estados-de-cuenta.component';
+import { MeterGroupModule } from 'primeng/metergroup';
+import { ButtonModule } from 'primeng/button';
+import { CierreDeCajaMensualComponent } from './cierre-de-caja-mensual/cierre-de-caja-mensual.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatTableModule} from '@angular/material/table';
+import { CalendarModule } from 'primeng/calendar';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ListadoComprasComponent } from './listado-compras/listado-compras.component';
+import { ListadoVentasComponent } from './listado-ventas/listado-ventas.component';
 @NgModule({
   declarations: [
     ReportesComponent,
     ResumenComponent,
     ResumenProductosComponent,
     CierresDeCajaComponent,
-    ProductosMasCompradosComponent
+    ProductosMasCompradosComponent,
+    EstadosDeCuentaComponent,
+    CierreDeCajaMensualComponent,
+    ListadoComprasComponent,
+    ListadoVentasComponent
   ],
   imports: [
     CommonModule,
@@ -46,9 +60,16 @@ import { ProductosMasCompradosComponent } from "./productos-mas-comprados/produc
     MatSelectModule,
     MatButtonModule,
     MatProgressBarModule,
-],
+    MeterGroupModule,
+    ButtonModule,
+    MatToolbarModule,
+    MatDividerModule,
+    MatTableModule,
+    CalendarModule
+  ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'es-CO' }
+    { provide: MAT_DATE_LOCALE, useValue: 'es-CO' },
+    DialogService
   ]
 })
 export class ReportesModule { }

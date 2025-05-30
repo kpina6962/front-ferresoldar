@@ -2,6 +2,7 @@ export interface DetalleVenta {
     numFactura: string,
     producto: string,
     id: number,
+    codigo: string,
     cantidad: number,
     totalVenta: number,
     marca: string,

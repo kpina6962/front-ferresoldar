@@ -1,0 +1,25 @@
+.lista-texto{
+    width: 100%;
+    display: flex;
+}
+.texto-titulo{
+    text-align: left;
+}
+.texto-valor{
+    justify-content: end;
+    margin-left: auto;
+}
+.titulo-producto {
+  background-color: #212433;
+  color: #fff;
+  font-weight: bold;
+  padding: 4px 10px;
+  border-radius: 10px;
+}
+.data {
+  background-color: #7483cc;
+  color: #ffffff;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 7px;
+}
