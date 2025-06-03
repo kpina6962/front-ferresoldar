@@ -28,8 +28,15 @@ export interface Cliente {
   export interface DatosVenta {
     clientes: Cliente[];
     metodosPago: MetodoPago[];
-    numFactura: number;
-    productos: Producto[];
+    productos: Producto[]; 
+  }
+
+  export interface ListadoFacturasPorMes{
+    id: number;
+    numFactura: string;
+    valor: number;
+    fecha: string;
+    persona: string;
   }
 
   export interface ListadoVenta{
@@ -37,14 +44,14 @@ export interface Cliente {
     numFactura: string;
     valor: number;
     fecha: string;
-    cliente: string;
+    persona: string;
   }
   export interface ListadoCompra{
     id: number;
     numFactura: string;
     valor: number;
     fecha: string;
-    cliente: string;
+    persona: string;
   }
   export interface DetalleFactura {
   numFactura: number;
@@ -59,10 +66,8 @@ export interface Cliente {
 export interface CompraRequest {
   producto: ProductoAddInt[];
   metodosPago: { idMetodoPago: number; valor: number }[];
-  idPropietario: number;
   idCliente: number;
   idUsuario: number;
-  idMetodoPago: number;
   valorTotal: number;
 }
 export interface ProductoAddInt {

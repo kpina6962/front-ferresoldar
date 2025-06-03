@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { ListadoVenta } from '../../../interfaces/venta/venta-back';
+import { ListadoFacturasPorMes, ListadoVenta } from '../../../interfaces/venta/venta-back';
 import { VentaServicioService } from '../../../servicios/ventas/venta-servicio.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { VentaServicioService } from '../../../servicios/ventas/venta-servicio.s
   styleUrl: './listado-ventas.component.css'
 })
 export class ListadoVentasComponent {
-  facturas: ListadoVenta[] = [];
+  facturas: ListadoFacturasPorMes[] = [];
   mes: number = 0;
   year: number = 0;
 
@@ -20,10 +20,10 @@ export class ListadoVentasComponent {
   ngOnInit(): void {
     this.mes = this.config.data.mes;
     this.year = this.config.data.year;
-    this.obtenerListadoMeses(1, this.mes, this.year)
+    this.obtenerListadoMeses(this.mes, this.year)
   }
-  obtenerListadoMeses(id: number, mes: number, year: number) {
-    this.servicio.listadoVentasMes(id, year, mes).subscribe({
+  obtenerListadoMeses(mes: number, year: number) {
+    this.servicio.listadoVentasMes(year, mes).subscribe({
       next: (data) => {
         this.facturas = data;
       }

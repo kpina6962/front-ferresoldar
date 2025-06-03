@@ -28,11 +28,11 @@ export class ListadoInventarioComponent implements OnInit {
 
   ngOnInit(): void {
     let id = 1;
-    this.obtenerListado(id);
+    this.obtenerListado();
   }
 
-  obtenerListado(id: number) {
-    this.inventarioService.obtenerListadoInventario(id).subscribe({
+  obtenerListado() {
+    this.inventarioService.obtenerListadoInventario().subscribe({
       next: data => {
         this.inventario = data;
         this.filtrarInventario();
@@ -74,7 +74,7 @@ export class ListadoInventarioComponent implements OnInit {
     dialogRef.afterClosed().subscribe(resultado => {
       if (resultado) {
         // Aquí llamas al método que quieras ejecutar después del cierre
-        this.obtenerListado(1); // o el método que tengas para actualizar los datos
+        this.obtenerListado(); // o el método que tengas para actualizar los datos
       }
     });
   }

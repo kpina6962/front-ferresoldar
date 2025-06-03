@@ -1,34 +1,34 @@
 export interface ReporteBack {
-    ganancia: number,
-    compras: number,
-    venta: number
+  ganancia: number,
+  compras: number,
+  venta: number
 }
-export interface ReporteMensual{
-    mes: string,
-    compras: number,
-    ventas: number
-    ganancia: number
+export interface ReporteMensual {
+  mes: string,
+  compras: number,
+  venta: number
+  ganancia: number
 }
 
-export interface ReporteSemanal{
-    semana: string;
-    compras: number,
-    ventas: number,
-    ganancia: number
+export interface ReporteSemanal {
+  semana: string;
+  compras: number,
+  venta: number,
+  ganancia: number
 }
-export interface ReporteInventario{
-    id: number,
-    nombre: string,
-    marca: string,
-    cantidad: number,
-    precioCompra: number,
-    precioVenta: number
+export interface ReporteInventario {
+  id: number,
+  nombre: string,
+  marca: string,
+  cantidad: number,
+  precioCompra: number,
+  precioVenta: number
 }
-export interface ProductoMasVendidoDto{
-    nombre: string,
-    marca: string,
-    cantidadVendida: number,
-    totalVenta: number
+export interface ProductoMasVendidoDto {
+  nombre: string,
+  marca: string,
+  cantidadVendida: number,
+  totalVenta: number
 }
 
 export interface MetodoPagoTotal {
@@ -36,9 +36,9 @@ export interface MetodoPagoTotal {
   metodoPago: string;
   total: number;
 }
-
 export interface ResumenCierreCaja {
   totalVentasDiario: MetodoPagoTotal[];
+  totalComprasDiario: MetodoPagoTotal[];
   facturasVentas: any[];   // puedes definir estos luego si los usas
   facturasCompras: any[];
 }

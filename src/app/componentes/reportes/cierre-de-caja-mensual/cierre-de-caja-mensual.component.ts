@@ -73,7 +73,7 @@ export class CierreDeCajaMensualComponent implements OnInit {
 
 
     // Reemplaza con tu servicio real
-    this.servicio.obtenerCierreCaja(1, this.mes, this.year).subscribe({
+    this.servicio.obtenerCierreCaja(this.mes, this.year).subscribe({
       next: data => {
         this.datos = data;
         this.cargarGraficos();
@@ -227,7 +227,7 @@ export class CierreDeCajaMensualComponent implements OnInit {
   }
   consultarCompras(): void {
     this._dialogservices.open(ListadoComprasComponent, {
-      header: "Listado de compras" + this.nombreMesYAnio,
+      header: "Listado de ventas del mes " + this.nombreMesYAnio,
       width: '70%',
       data: {
         mes: this.mes,

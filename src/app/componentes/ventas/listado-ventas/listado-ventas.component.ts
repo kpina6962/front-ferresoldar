@@ -29,11 +29,11 @@ export class ListadoVentasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.obtenerListado(this.idPropietario)
+    this.obtenerListado()
   }
 
-  obtenerListado(id: number) {
-    this._serviciosVenta.obtenrListaVentas(id).subscribe({
+  obtenerListado() {
+    this._serviciosVenta.obtenrListaVentas().subscribe({
       next: (data) => {
         this.facturas = data;
       }

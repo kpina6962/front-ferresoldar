@@ -13,7 +13,7 @@ export interface ProductoViewModel{
     codigo: string,
     nombre: string,
     descripcion: string,
-    precio: number
+    valor: number
 }
 
 export interface SimpleViewModel {
@@ -29,6 +29,7 @@ export interface FormProducto {
 
 export interface ProductoAdd{
   nombre: string,
+  codigo: string,
   descripcion: string,
   idMedida: number,
   valor: number,
@@ -45,7 +46,8 @@ export interface InventarioGenerate{
 export interface MovimientoInventarioRequest {
   inventarioAgregar: InventarioGenerate[];
   idUsuario: number;
-  idPropietario: number;
+  idMetodoPago: number;
+  valor: number;
 }
 export interface InformacionProducto{
   codigo: string,

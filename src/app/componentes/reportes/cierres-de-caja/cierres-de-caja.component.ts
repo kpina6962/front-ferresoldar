@@ -19,6 +19,7 @@ export class CierresDeCajaComponent implements OnInit {
   fechaHoy = new Date();
 
   totalVentasDiario: MetodoPagoTotal[] = [];
+  totalComprasDiario : MetodoPagoTotal[] = [];
   facturasVentas: any[] = [];
   facturasCompras: any[] = [];
 
@@ -44,9 +45,10 @@ export class CierresDeCajaComponent implements OnInit {
 
 
   obtenerDatosCierreCaja() {
-    this.reporteService.obtenerCierreDeCajaDiario(1).subscribe({
+    this.reporteService.obtenerCierreDeCajaDiario().subscribe({
       next: (data: ResumenCierreCaja) => {
         this.totalVentasDiario = data.totalVentasDiario;
+        this.totalComprasDiario = data.totalComprasDiario;
         this.facturasVentas = data.facturasVentas;
         this.facturasCompras = data.facturasCompras;
 
@@ -59,19 +61,25 @@ export class CierresDeCajaComponent implements OnInit {
   }
 
   crearVariableGraficos(totalVentasDiario: MetodoPagoTotal[]) {
-    const totalGeneral = totalVentasDiario.reduce((acc, item) => acc + item.total, 0);
+    const totalGeneralVentas = totalVentasDiario.reduce((acc, item) => acc + item.total, 0);
+    const totalGeneralCompras = this.totalComprasDiario.reduce((acc, item) => acc + item.total, 0);
     this.totalGlobalVendido = this.totalVentasDiario
       .map(v => v.total)
       .reduce((acc, val) => acc + val, 0);
 
-    this.totalGlobalComprado = this.facturasCompras
+    this.totalGlobalComprado = this.totalComprasDiario
       .map(c => c.total)
       .reduce((acc, val) => acc + val, 0);
     this.totalGeneral = this.totalGlobalComprado + this.totalGlobalVendido;
+
     this.porcentajeVenta = (this.totalGlobalVendido / this.totalGeneral) * 100;
+
+    console.log(this.totalGlobalVendido)
+    console.log(this.totalGeneral)
+
     this.porcentajeCompra = (this.totalGlobalComprado / this.totalGeneral) * 100;
     this.graficosTotales = totalVentasDiario.map(item => {
-      const porcentaje = totalGeneral > 0 ? (item.total / totalGeneral) * 100 : 0;
+      const porcentaje = totalGeneralVentas > 0 ? (item.total / totalGeneralVentas) * 100 : 0;
 
       return {
         label: item.metodoPago,  // Ajusta si el campo tiene otro nombre

@@ -25,7 +25,7 @@ export class EstadosDeCuentaComponent implements OnInit {
   meterGroupDisplayValues: CustomMeterGroupItem[] = []; // Usaremos esta nueva estructura
   totalGeneral: number = 0; // Para calcular el total y los porcentajes
 
-  constructor(private service: ReportesService){
+  constructor(private service: ReportesService) {
 
   }
 
@@ -33,8 +33,8 @@ export class EstadosDeCuentaComponent implements OnInit {
     this.obtenerEstadosCuenta();
   }
 
-  obtenerEstadosCuenta(): void{
-    this.service.obtenerEstadosDeCuenta(1).subscribe({
+  obtenerEstadosCuenta(): void {
+    this.service.obtenerEstadosDeCuenta().subscribe({
       next: (data) => {
         this.backendData = data;
         this.calculateDisplayValues();
@@ -43,12 +43,12 @@ export class EstadosDeCuentaComponent implements OnInit {
   }
 
   calculateDisplayValues(): void {
-    // 1. Calcular el total general de totalValor
-    this.totalGeneral = this.backendData.reduce((sum, item) => sum + item.totalValor, 0);
+    // 1. Calcular la suma absoluta de todos los valores para usar como base de porcentaje
+    const totalAbsoluto = this.backendData.reduce((sum, item) => sum + Math.abs(item.totalValor), 0);
 
     // 2. Mapear backendData a meterGroupDisplayValues
     this.meterGroupDisplayValues = this.backendData.map(item => {
-      const percentage = this.totalGeneral > 0 ? (item.totalValor / this.totalGeneral) * 100 : 0;
+      const porcentaje = totalAbsoluto > 0 ? (Math.abs(item.totalValor) / totalAbsoluto) * 100 : 0;
       let color1: string = '';
       let color2: string = '';
       let icon: string = '';
@@ -57,23 +57,23 @@ export class EstadosDeCuentaComponent implements OnInit {
       switch (item.metodoPago) {
         case 'Efectivo':
           color1 = '#4CAF50'; // Verde
-          color2 = '#81C784'; // Verde más claro
+          color2 = '#81C784';
           icon = PrimeIcons.MONEY_BILL;
           break;
         case 'Credito':
           color1 = '#2196F3'; // Azul
-          color2 = '#64B5F6'; // Azul más claro
+          color2 = '#64B5F6';
           icon = PrimeIcons.CREDIT_CARD;
           break;
         case 'Transferencia':
-          color1 = '#FFC107'; // Amarillo/Naranja
-          color2 = '#FFD54F'; // Amarillo/Naranja más claro
-          icon = PrimeIcons.WALLET; // O un ícono más específico si hay para Nequi
+          color1 = '#FFC107'; // Amarillo
+          color2 = '#FFD54F';
+          icon = PrimeIcons.WALLET;
           break;
         default:
           color1 = '#9E9E9E'; // Gris
-          color2 = '#BDBDBD'; // Gris más claro
-          icon = PrimeIcons.QUESTION; // Ícono por defecto
+          color2 = '#BDBDBD';
+          icon = PrimeIcons.QUESTION;
           break;
       }
 
@@ -81,13 +81,11 @@ export class EstadosDeCuentaComponent implements OnInit {
         label: item.metodoPago,
         color1: color1,
         color2: color2,
-        value: parseFloat(percentage.toFixed(2)), // Redondea a 2 decimales
+        value: parseFloat(porcentaje.toFixed(2)), // valor siempre positivo
         icon: icon,
-        totalValorOriginal: item.totalValor,
+        totalValorOriginal: item.totalValor, // aquí sí puede ser negativo
         cantidadTransaccionesOriginal: item.cantidadTransacciones
       };
     });
   }
-
-
 }

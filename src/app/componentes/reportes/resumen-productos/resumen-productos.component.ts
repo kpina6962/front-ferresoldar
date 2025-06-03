@@ -25,14 +25,14 @@ export class ResumenProductosComponent implements OnInit {
 
   obtenerMarcas(): void {
     // Aquí debes obtener las marcas desde tu servicio o fuente de datos
-    this.productoService.getMarcas(1).subscribe(marcas => {
+    this.productoService.getMarcas().subscribe(marcas => {
       this.marcas = marcas;
     });
   }
 
   obtenerProductos(): void {
     // Aquí llamas al servicio para obtener los productos con los filtros aplicados
-    this.productoService.getProductosMasVendidos(1).subscribe(data => {
+    this.productoService.getProductosMasVendidos().subscribe(data => {
       this.productos = data;
       this.actualizarGrafico();
     });
@@ -40,7 +40,7 @@ export class ResumenProductosComponent implements OnInit {
 
   filtrarProductos(): void {
     // Vuelve a cargar los productos con los filtros seleccionados
-    this.productoService.getProductosMasVendidos(1, this.marcaSeleccionada!, this.fechaInicio!, this.fechaFin!).subscribe(data => {
+    this.productoService.getProductosMasVendidos(this.marcaSeleccionada!, this.fechaInicio!, this.fechaFin!).subscribe(data => {
       this.productos = data;
       this.actualizarGrafico();
     });

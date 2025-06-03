@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
-    endpoint: 'https://localhost:7213/'
+    endpoint: 'http://www.inventarioapi.somee.com/api'
   };
   

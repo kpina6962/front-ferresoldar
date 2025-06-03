@@ -12,7 +12,7 @@ import { DetalleCompra, DetalleVenta } from '../../interfaces/detalles/detalle-v
 export class ReportesService {
   private webApi: string = environment.endpoint;
   private api: string = 'api/Reportes/'
-  private apiCierreCaja: string = 'api/CierreCaja/cierre-caja?'
+  private cierreCajaMensual: string = 'cierre-caja?'
   //
   private reportes: string = 'reporte'
   private reporteMensual: string = 'reporte-meses'
@@ -30,27 +30,25 @@ export class ReportesService {
   private EstadosCuenta: string = 'estados-de-cuenta'
   constructor(private http: HttpClient) { }
   //Estadisticas
-  obtenerReporte(idPropietario: number):Observable<ReporteBack> {
-    let params = new HttpParams().set('idPropietario', idPropietario);
-
-    return this.http.get<ReporteBack>(`${this.webApi}${this.api}${this.reportes}`, { params });
+  obtenerReporte():Observable<ReporteBack> {
+    return this.http.get<ReporteBack>(`${this.webApi}${this.api}${this.reportes}`);
   }
-  obtenerReporteMensual(idPropietario: number, year: number):Observable<ReporteMensual[]>{
-    return this.http.get<ReporteMensual[]>(`${this.webApi}${this.api}${this.reporteMensual}?idPropietario=${idPropietario}&year=${year}`)
+  obtenerReporteMensual(year: number):Observable<ReporteMensual[]>{
+    return this.http.get<ReporteMensual[]>(`${this.webApi}${this.api}${this.reporteMensual}?year=${year}`)
   }
-  obtenerReporteSemanal(idPropietario: number, year: number, mes: number):Observable<ReporteSemanal[]>{
-    return this.http.get<ReporteSemanal[]>(`${this.webApi}${this.api}${this.ReporteSemanalu}?idPropietario=${idPropietario}&year=${year}&mes=${mes}`)
+  obtenerReporteSemanal(year: number, mes: number):Observable<ReporteSemanal[]>{
+    return this.http.get<ReporteSemanal[]>(`${this.webApi}${this.api}${this.ReporteSemanalu}?year=${year}&mes=${mes}`)
   }
   //Resumen
   obtenerReporteInventario(idPropietario: number):Observable<ReporteInventario[]>{
     return this.http.get<ReporteInventario[]>(`${this.webApi}${this.api}${this.ReporteInventariou}?idPropietario=${idPropietario}`)
   }
-  getMarcas(idPropietario: number): Observable<{ id: number, nombre: string }[]> {
-    return this.http.get<{ id: number, nombre: string }[]>(`${this.webApi}${this.ObtenerMarca}?idPropietario=${idPropietario}`); // Ajusta la URL a tu API
+  getMarcas(): Observable<{ id: number, nombre: string }[]> {
+    return this.http.get<{ id: number, nombre: string }[]>(`${this.webApi}${this.ObtenerMarca}`); // Ajusta la URL a tu API
   }
 
-  getProductosMasVendidos(idPropietario:number, idMarca?: number, fechaInicio?: Date, fechaFin?: Date): Observable<ProductoMasVendidoDto[]> {
-    let params = new HttpParams().set('idPropietario', idPropietario);
+  getProductosMasVendidos(idMarca?: number, fechaInicio?: Date, fechaFin?: Date): Observable<ProductoMasVendidoDto[]> {
+    let params = new HttpParams();
     if (fechaInicio) {
       params = params.set('fechaInicio', fechaInicio.toISOString());
     }
@@ -64,8 +62,8 @@ export class ReportesService {
     }
     return this.http.get<ProductoMasVendidoDto[]>(`${this.webApi}${this.api}${this.ReporteProductos}`, { params });
   }
-  getProductosMasComprado(idPropietario:number, idMarca?: number, fechaInicio?: Date, fechaFin?: Date): Observable<ProductoMasVendidoDto[]> {
-    let params = new HttpParams().set('idPropietario', idPropietario);
+  getProductosMasComprado(idMarca?: number, fechaInicio?: Date, fechaFin?: Date): Observable<ProductoMasVendidoDto[]> {
+    let params = new HttpParams();
     if (fechaInicio) {
       params = params.set('fechaInicio', fechaInicio.toISOString());
     }
@@ -80,19 +78,19 @@ export class ReportesService {
     return this.http.get<ProductoMasVendidoDto[]>(`${this.webApi}${this.api}${this.ReporteProductosComprados}`, { params });
   }
   //Listados info
-  obtenerDetallesVenta(idPropietario: number):Observable<DetalleVenta[]>{
-    return this.http.get<DetalleVenta[]>(`${this.webApi}${this.api}${this.DetalleVentas}?idPropietario=${idPropietario}`);
+  obtenerDetallesVenta():Observable<DetalleVenta[]>{
+    return this.http.get<DetalleVenta[]>(`${this.webApi}${this.api}${this.DetalleVentas}`);
   }
-  obtenerDetallesCompras(idPropietario: number):Observable<DetalleCompra[]>{
-    return this.http.get<DetalleCompra[]>(`${this.webApi}${this.api}${this.DetalleCompras}?idPropietario=${idPropietario}`);
+  obtenerDetallesCompras():Observable<DetalleCompra[]>{
+    return this.http.get<DetalleCompra[]>(`${this.webApi}${this.api}${this.DetalleCompras}`);
   }
-  obtenerCierreDeCajaDiario(idPropietario: number):Observable<ResumenCierreCaja>{
-    return this.http.get<ResumenCierreCaja>(`${this.webApi}${this.api}${this.CierreCaja}?idPropietario=${idPropietario}`);
+  obtenerCierreDeCajaDiario():Observable<ResumenCierreCaja>{
+    return this.http.get<ResumenCierreCaja>(`${this.webApi}${this.api}${this.CierreCaja}`);
   }
-  obtenerEstadosDeCuenta(idPropietario: number):Observable<MetodoPagoData[]>{
-    return this.http.get<MetodoPagoData[]>(`${this.webApi}${this.api}${this.EstadosCuenta}?idPropietario=${idPropietario}`);
+  obtenerEstadosDeCuenta():Observable<MetodoPagoData[]>{
+    return this.http.get<MetodoPagoData[]>(`${this.webApi}${this.api}${this.EstadosCuenta}`);
   }
-  obtenerCierreCaja(idPropietario: number, idMes: number, year: number):Observable<any>{
-    return this.http.get<any>(`${this.webApi}${this.apiCierreCaja}idPropietario=${idPropietario}&mes=${idMes}&year=${year}`);
+  obtenerCierreCaja(idMes: number, year: number):Observable<any>{
+    return this.http.get<any>(`${this.webApi}${this.api}${this.cierreCajaMensual}mes=${idMes}&year=${year}`);
   }
 }

@@ -23,26 +23,26 @@ export class InventarioServicioService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerListadoInventario(idPropietario: number): Observable<Inventario[]> {
-    return this.http.get<Inventario[]>(`${this.webApi}${this.api}${this.listadoInventario}?idPropietario=${idPropietario}`);
-  }
-  obtenerMetodosPago(idPropietario: number): Observable<SimpleViewModel[]>{
-    return this.http.get<SimpleViewModel[]>(`${this.webApi}${this.api}${this.metodosPago}?idPropietario=${idPropietario}`)
-  }
-  obtenerFormulario(idPropietario: number): Observable<FormProducto> {
-    return this.http.get<FormProducto>(`${this.webApi}${this.apiProducto}${this.select}?idPropietario=${idPropietario}`);
-  }
-  obtenerProductos(idPropietario: number): Observable<ProductoViewModel[]> {
-    return this.http.get<ProductoViewModel[]>(`${this.webApi}${this.api}${this.listadoProductos}?idPropietario=${idPropietario}`);
-  }
-  obtenerProveedores(idPropietario: number): Observable<SimpleViewModel[]> {
-    return this.http.get<SimpleViewModel[]>(`${this.webApi}${this.api}${this.listadoProveedores}?idPropietario=${idPropietario}`);
-  }
   enviarMovimientoInventario(payload: MovimientoInventarioRequest): Observable<any> {
     return this.http.post<any>(`${this.webApi}${this.apiMov}`, payload);
   }
-  informacionProducto(idPropietario: number, idProducto: number): Observable<InformacionProducto> {
-    return this.http.get<InformacionProducto>(`${this.webApi}${this.apiProducto}${this.informacionProductos}?idPropietario=${idPropietario}&idProducto=${idProducto}`)
+  obtenerListadoInventario(): Observable<Inventario[]> {
+    return this.http.get<Inventario[]>(`${this.webApi}${this.api}${this.listadoInventario}`);
+  }
+  obtenerMetodosPago(): Observable<SimpleViewModel[]>{
+    return this.http.get<SimpleViewModel[]>(`${this.webApi}${this.api}${this.metodosPago}`)
+  }
+  obtenerFormulario(): Observable<FormProducto> {
+    return this.http.get<FormProducto>(`${this.webApi}${this.apiProducto}${this.select}`);
+  }
+  obtenerProductos(): Observable<ProductoViewModel[]> {
+    return this.http.get<ProductoViewModel[]>(`${this.webApi}${this.api}${this.listadoProductos}`);
+  }
+  obtenerProveedores(): Observable<SimpleViewModel[]> {
+    return this.http.get<SimpleViewModel[]>(`${this.webApi}${this.api}${this.listadoProveedores}`);
+  }
+  informacionProducto(idProducto: number): Observable<InformacionProducto> {
+    return this.http.get<InformacionProducto>(`${this.webApi}${this.apiProducto}${this.informacionProductos}?idProducto=${idProducto}`)
   }
   datosProductoEditar(idPropietario: number, idProducto: number): Observable<ProductoAdd> {
     return this.http.get<ProductoAdd>(`${this.webApi}${this.apiProducto}${this.datosProducto}?idPropietario=${idPropietario}&idProducto=${idProducto}`)
@@ -54,15 +54,11 @@ export class InventarioServicioService {
       auditorias: cambios
     });
   }
-  crearProducto(productoAdd: ProductoAdd, idPropietario: number): Observable<any> {
-    const params = {
-      idPropietario: idPropietario.toString(),
-    };
+  crearProducto(productoAdd: ProductoAdd): Observable<any> {
 
     return this.http.post<any>(
       `${this.webApi}${this.apiProducto}${this.agregarProducto}`,
-      productoAdd,
-      { params }
+      productoAdd
     );
   }
 

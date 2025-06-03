@@ -64,7 +64,7 @@ export class RegistrarVentasComponent implements OnInit {
   }
 
   obtenerDatos() {
-    this.servicio.obtenerDatos(1).subscribe({
+    this.servicio.obtenerDatos().subscribe({
       next: (data) => {
         this.datosForm = data;
         this.productosDisponibles = this.datosForm.productos;
@@ -221,10 +221,8 @@ export class RegistrarVentasComponent implements OnInit {
     const compra: CompraRequest = {
       producto: productos,
       metodosPago: metodosPago,
-      idPropietario: 1,
       idCliente: this.compraForm.get('cliente')?.value?.id,
-      idUsuario: 4,
-      idMetodoPago: 1,
+      idUsuario: 1,
       valorTotal: this.totalConGanancia // Usar total con ganancia
     };
 

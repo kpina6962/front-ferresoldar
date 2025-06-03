@@ -22,7 +22,7 @@ export class InformacionProductoComponent {
   }
 
   cargarProducto(id: number) {
-    this.servicio.informacionProducto(1, id).subscribe({
+    this.servicio.informacionProducto(id).subscribe({
       next : data => {
         this.producto = data;
       }

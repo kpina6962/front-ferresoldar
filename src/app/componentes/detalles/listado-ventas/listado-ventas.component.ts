@@ -9,7 +9,6 @@ import { Table } from 'primeng/table';
   styleUrl: './listado-ventas.component.css'
 })
 export class ListadoVentasComponent implements OnInit {
-  idPropietario: number = 1;
   datos!: DetalleVenta[];
   inventarioFiltrado: DetalleVenta[] = [];
   searchTerm: string = '';
@@ -19,11 +18,11 @@ export class ListadoVentasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.obtenerVentas(this.idPropietario);
+    this.obtenerVentas();
   }
 
-  obtenerVentas(id: number) {
-    this.reporteService.obtenerDetallesVenta(id).subscribe({
+  obtenerVentas() {
+    this.reporteService.obtenerDetallesVenta().subscribe({
       next: data => {
         this.datos = data
         this.filtrarInventario();
@@ -34,6 +33,7 @@ export class ListadoVentasComponent implements OnInit {
     const termino = this.searchTerm.toLowerCase();
 
     this.inventarioFiltrado = this.datos.filter(item =>
+      item?.codigo?.toLowerCase().includes(termino) ||
       item?.producto?.toLowerCase().includes(termino) ||
       item?.marca?.toLowerCase().includes(termino) ||
       item?.cliente?.toLowerCase().includes(termino) ||

@@ -10,22 +10,22 @@ import { MessageService } from 'primeng/api';
 })
 export class CrearEditarProductosComponent implements OnInit, OnChanges {
   PorcentajeGanancias = [
-    { value: 5,  label: "5%" },
+    { value: 5, label: "5%" },
     { value: 10, label: "10%" },
-    { value: 15, label: "15%"},
-    { value: 20, label: "20%"},
-    { value: 25, label: "25%"},
-    { value: 30, label: "30%"},
-    { value: 35, label: "35%"},
-    { value: 40, label: "40%"},
-    { value: 45, label: "45%"},
-    { value: 50, label: "50%"},
-    { value: 55, label: "55%"},
-    { value: 60, label: "60%"},
-    { value: 70, label: "70%"},
-    { value: 80, label: "80%"},
-    { value: 90, label: "90%"},
-    { value: 100, label: "100%"},
+    { value: 15, label: "15%" },
+    { value: 20, label: "20%" },
+    { value: 25, label: "25%" },
+    { value: 30, label: "30%" },
+    { value: 35, label: "35%" },
+    { value: 40, label: "40%" },
+    { value: 45, label: "45%" },
+    { value: 50, label: "50%" },
+    { value: 55, label: "55%" },
+    { value: 60, label: "60%" },
+    { value: 70, label: "70%" },
+    { value: 80, label: "80%" },
+    { value: 90, label: "90%" },
+    { value: 100, label: "100%" },
   ]
 
 
@@ -50,24 +50,24 @@ export class CrearEditarProductosComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
-    this.obtenerSelects(this.idPropietario)
+    this.obtenerSelects()
     this.inicializarFormulario();
   }
 
   actualizarValorVenta() {
-  const valor = this.formularioProducto.get('valor')?.value;
-  const porcentaje = this.formularioProducto.get('porcentajeGanancia')?.value;
+    const valor = this.formularioProducto.get('valor')?.value;
+    const porcentaje = this.formularioProducto.get('porcentajeGanancia')?.value;
 
-  if (valor != null && porcentaje != null) {
-    const ganancia = valor * (porcentaje / 100);
-    const valorVenta = valor + ganancia;
-    this.formularioProducto.get('valorVenta')?.setValue(Math.round(valorVenta * 100) / 100, { emitEvent: false });
+    if (valor != null && porcentaje != null) {
+      const ganancia = valor * (porcentaje / 100);
+      const valorVenta = valor + ganancia;
+      this.formularioProducto.get('valorVenta')?.setValue(Math.round(valorVenta * 100) / 100, { emitEvent: false });
+    }
   }
-}
 
 
-  obtenerSelects(id: number) {
-    this.servicio.obtenerFormulario(id).subscribe({
+  obtenerSelects() {
+    this.servicio.obtenerFormulario().subscribe({
       next: (data) => {
         this.medidas = data.medida;
         this.marcas = data.marca;
@@ -85,6 +85,7 @@ export class CrearEditarProductosComponent implements OnInit, OnChanges {
   inicializarFormulario() {
     this.formularioProducto = this.fb.group({
       nombre: [this.producto?.nombre || '', Validators.required],
+      codigo: [this.producto?.codigo || '', Validators.required],
       descripcion: [this.producto?.descripcion || '', Validators.required],
       idMedida: [this.producto?.idMedida || null, Validators.required],
       valor: [this.producto?.valor || null, [Validators.required, Validators.min(0)]],
@@ -101,6 +102,7 @@ export class CrearEditarProductosComponent implements OnInit, OnChanges {
     if (this.formularioProducto.valid) {
       const productoAdd: ProductoAdd = {
         nombre: this.formularioProducto.value.nombre,
+        codigo: this.formularioProducto.value.codigo,
         descripcion: this.formularioProducto.value.descripcion,
         idMedida: this.formularioProducto.value.idMedida,
         valor: this.formularioProducto.value.valor,
@@ -115,11 +117,12 @@ export class CrearEditarProductosComponent implements OnInit, OnChanges {
           idMedida: productoAdd.idMedida,
           idSeccion: productoAdd.idSeccion,
           nombre: productoAdd.nombre,
+          codigo: productoAdd.codigo,
           descripcion: productoAdd.descripcion,
           valor: productoAdd.valor,
           valorVenta: productoAdd.valorVenta
         }
-        this.crearProducto(productoNew, this.idPropietario)
+        this.crearProducto(productoNew)
       } else if (this.modo === 'editar') {
         console.log('Modo EDITAR. Producto:', productoAdd);
       }
@@ -129,21 +132,25 @@ export class CrearEditarProductosComponent implements OnInit, OnChanges {
     }
   }
 
-  crearProducto(producto: ProductoAdd, idPropietario: number) {
-    this.servicio.crearProducto(producto, idPropietario).subscribe({
+  crearProducto(producto: ProductoAdd) {
+    this.servicio.crearProducto(producto).subscribe({
       next: data => {
         console.log(data);
         this.messageService.add({
           severity: 'success',
           summary: 'Éxito',
-          detail: 'Producto agregado correctamente'
+          detail: data.mensaje
         });
+        this.cerrarDialogo();
       },
       error: err => {
+        const tipo = err?.error?.tipo || 'Error';
+        const mensaje = err?.error?.mensaje || 'Error inesperado';
+
         this.messageService.add({
           severity: 'error',
-          summary: 'Error',
-          detail: 'No se pudo agregar el producto'
+          summary: tipo,
+          detail: mensaje
         });
       }
     });

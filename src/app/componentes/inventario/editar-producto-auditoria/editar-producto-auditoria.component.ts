@@ -45,7 +45,7 @@ export class EditarProductoAuditoriaComponent implements OnInit {
     });
   }
   obtenerSelects(id: number) {
-    this.servicio.obtenerFormulario(id).subscribe({
+    this.servicio.obtenerFormulario().subscribe({
       next: (data) => {
         this.medidas = data.medida;
         this.marcas = data.marca;

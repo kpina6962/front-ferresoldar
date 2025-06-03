@@ -63,22 +63,22 @@ export class ReportesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.obtenerDatos(1);
+    this.obtenerDatos();
   }
-  obtenerDatos(id: number) {
-    this._service.obtenerReporte(id).subscribe({
+  obtenerDatos() {
+    this._service.obtenerReporte().subscribe({
       next: (d) => {
         this.data = d
         this.actualizarGrafico();
       }
     })
-    this._service.obtenerReporteMensual(id, this.yearDefault).subscribe({
+    this._service.obtenerReporteMensual(this.yearDefault).subscribe({
       next: (data) => {
         this.reporteMensual = data;
         this.actualizarGraficoMensual();
       }
     })
-    this._service.obtenerReporteSemanal(id, this.yearDefault, this.mesDefault).subscribe({
+    this._service.obtenerReporteSemanal(this.yearDefault, this.mesDefault).subscribe({
       next: (de) => {
         this.reporteSemanal = de;
         this.actualizarGraficoSemanal();
@@ -92,7 +92,7 @@ export class ReportesComponent implements OnInit {
         {
           label: 'Resumen',
           data: [this.data.compras, this.data.venta, this.data.ganancia],
-          backgroundColor: ['#06b6d4', '#6b7280', '#66BB6A']
+          backgroundColor: ['#5d6b7f', '#cbd5e1', '#66BB6A']
         }
       ]
     };
@@ -102,7 +102,7 @@ export class ReportesComponent implements OnInit {
   actualizarGraficoMensual(): void {
   const etiquetas = this.reporteMensual.map(r => r.mes);
   const compras = this.reporteMensual.map(r => r.compras);
-  const ventas = this.reporteMensual.map(r => r.ventas);
+  const ventas = this.reporteMensual.map(r => r.venta);
 
   this.graficoMensualData = {
     labels: etiquetas,
@@ -125,7 +125,7 @@ export class ReportesComponent implements OnInit {
   actualizarGraficoSemanal(): void {
     const etiquetas = this.reporteSemanal.map(r => r.semana);
     const compras = this.reporteSemanal.map(r => r.compras);
-    const ventas = this.reporteSemanal.map(r => r.ventas);
+    const ventas = this.reporteSemanal.map(r => r.venta);
     this.graficoSemanalData = {
       labels: etiquetas,
       datasets: [
@@ -167,13 +167,13 @@ export class ReportesComponent implements OnInit {
     this.mesDefault = month;
     this.yearDefault = year;
 
-    this._service.obtenerReporteMensual(1, year).subscribe({
+    this._service.obtenerReporteMensual(year).subscribe({
       next: (data) => {
         this.reporteMensual = data;
         this.actualizarGraficoMensual();
       }
     })
-    this._service.obtenerReporteSemanal(1, year, month).subscribe({
+    this._service.obtenerReporteSemanal(year, month).subscribe({
       next: (de) => {
         this.reporteSemanal = de;
         this.actualizarGraficoSemanal();

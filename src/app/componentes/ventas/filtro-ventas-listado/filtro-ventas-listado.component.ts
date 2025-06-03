@@ -18,12 +18,12 @@ export class FiltroVentasListadoComponent implements OnInit{
 
   ngOnInit(): void {
     this.numFactura = this.config.data.numFactura;
-    this.buscarInformacion(this.numFactura, 1)
+    this.buscarInformacion(this.numFactura)
     // Aquí puedes hacer una petición al backend o buscar el detalle según numFactura
   }
 
-  buscarInformacion(numFactura: number, idPropietario: number) {
-    this._ventaService.obtenrInfoCompras(numFactura, idPropietario).subscribe({
+  buscarInformacion(numFactura: number) {
+    this._ventaService.obtenrInfoCompras(numFactura).subscribe({
       next: (data) => {
         this.detallesFactura = data;
       },

@@ -2,7 +2,7 @@
   <ng-template pTemplate="header">
     <tr>
       <th pResizableColumn>N° Factura</th>
-      <th pResizableColumn>Cliente</th>
+      <th pResizableColumn>Proveedor</th>
       <th pResizableColumn>Fecha</th>
       <th pResizableColumn>Valor</th>
     </tr>
@@ -11,7 +11,7 @@
   <ng-template pTemplate="body" let-compra>
     <tr>
       <td>{{ compra.numFactura }}</td>
-      <td>{{ compra.cliente }}</td>
+      <td>{{ compra.persona }}</td>
       <td>{{ compra.fecha | date: 'shortDate' }}</td>
       <td>{{ compra.valor | currency:'USD':'symbol':'1.0-2' }}</td>
     </tr>

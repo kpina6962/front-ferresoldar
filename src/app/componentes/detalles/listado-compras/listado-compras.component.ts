@@ -18,11 +18,11 @@ export class ListadoComprasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.obtenerVentas(this.idPropietario);
+    this.obtenerVentas();
   }
 
-  obtenerVentas(id: number) {
-    this.reporteService.obtenerDetallesCompras(id).subscribe({
+  obtenerVentas() {
+    this.reporteService.obtenerDetallesCompras().subscribe({
       next: data => {
         this.datos = data
         this.filtrarInventario();
@@ -33,6 +33,7 @@ export class ListadoComprasComponent implements OnInit {
     const termino = this.searchTerm.toLowerCase();
 
     this.inventarioFiltrado = this.datos.filter(item =>
+      item?.codigo?.toLowerCase().includes(termino) ||
       item?.producto?.toLowerCase().includes(termino) ||
       item?.marca?.toLowerCase().includes(termino) ||
       item?.proveedor?.toLowerCase().includes(termino) ||

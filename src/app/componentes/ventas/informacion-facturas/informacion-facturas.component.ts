@@ -11,7 +11,7 @@ import { VentaServicioService } from '../../../servicios/ventas/venta-servicio.s
 })
 export class InformacionFacturasComponent implements OnInit {
 
-  numFactura: string = '';
+  numFactura: number = 0;
   detallesFactura: DetalleFactura[] = [];
 
   constructor(public config: DynamicDialogConfig,
@@ -20,12 +20,12 @@ export class InformacionFacturasComponent implements OnInit {
 
   ngOnInit(): void {
     this.numFactura = this.config.data.numFactura;
-    this.buscarInformacion(this.numFactura, 1)
+    this.buscarInformacion(this.numFactura)
     // Aquí puedes hacer una petición al backend o buscar el detalle según numFactura
   }
 
-  buscarInformacion(numFactura: string, idPropietario: number) {
-    this._ventaService.obtenrInfoVentas(numFactura, idPropietario).subscribe({
+  buscarInformacion(numFactura: number) {
+    this._ventaService.obtenrInfoVentas(numFactura).subscribe({
       next: (data) => {
         this.detallesFactura = data;
       },

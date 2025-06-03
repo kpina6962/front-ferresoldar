@@ -26,9 +26,9 @@ export class RegistrarComprasInventarioComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.obtenerProveedores(1);
-    this.obtenerProductos(1);
-    this.obtenerMetodosPago(1)
+    this.obtenerProveedores();
+    this.obtenerProductos();
+    this.obtenerMetodosPago()
     this.compraForm = this.fb.group({
       proveedor: [null, Validators.required],
       quienSolicita: ['', Validators.required],
@@ -42,23 +42,23 @@ export class RegistrarComprasInventarioComponent implements OnInit {
     this.crearProductoForm();
   }
 
-  obtenerProductos(id: number) {
-    this.servicio.obtenerProductos(id).subscribe({
+  obtenerProductos() {
+    this.servicio.obtenerProductos().subscribe({
       next: data => {
         this.productosDisponibles = data;
       }
     })
   }
-  obtenerProveedores(id: number) {
-    this.servicio.obtenerProveedores(id).subscribe({
+  obtenerProveedores() {
+    this.servicio.obtenerProveedores().subscribe({
       next: data => {
         this.proveedores = data;
       }
     })
   }
 
-  obtenerMetodosPago(id: number){
-    this.servicio.obtenerMetodosPago(id).subscribe({
+  obtenerMetodosPago(){
+    this.servicio.obtenerMetodosPago().subscribe({
       next: data => {
         this.metodosPago = data;
       }
@@ -93,7 +93,7 @@ export class RegistrarComprasInventarioComponent implements OnInit {
         codigo: [productoSeleccionado.codigo],
         descripcion: [productoSeleccionado.nombre],
         cantidad: [cantidad],
-        precio: [productoSeleccionado.precio],
+        precio: [productoSeleccionado.valor],
         descuento: [this.productoForm.get('descuento')?.value],
         iva: [19],
         total: [0]
@@ -122,7 +122,7 @@ export class RegistrarComprasInventarioComponent implements OnInit {
   productoSeleccionado(producto: ProductoViewModel) {
     this.productoForm.patchValue({
       descripcion: producto.descripcion,
-      precio: producto.precio
+      precio: producto.valor
     });
   }
 
@@ -170,17 +170,15 @@ export class RegistrarComprasInventarioComponent implements OnInit {
     if (this.inventarioAGenerar.length != 0) {
       this.enviando = true;
 
-      const idUsuario = 4;
-      const idPropietario = 1;
+      const idUsuario = 1;
       const idMetodoPago = this.compraForm.get('metodoPago')?.value?.id;
-      const totalCompra = this.totalGeneral;
+      const valor = this.totalGeneral;
 
       const payload = {
         inventarioAgregar: this.inventarioAGenerar,
         idUsuario,
         idMetodoPago,
-        idPropietario,
-        totalCompra
+        valor
       };
 
       this.servicio.enviarMovimientoInventario(payload).subscribe({
